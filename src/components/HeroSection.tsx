@@ -108,18 +108,18 @@ const HeroSection = () => {
                   Hi I'm Shubham
                 </motion.h1>
 
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={titles[titleIndex]}
-                    initial={{ opacity: 0, y: 30, rotateX: 40 }}
-                    animate={ready ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-                    exit={{ opacity: 0, y: -30, rotateX: -40 }}
-                    transition={{ duration: 0.5, ease: easing }}
-                    className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
+                <div className="relative z-10 -mt-1 md:-mt-2 h-[3.5rem] sm:h-[4.5rem] md:h-[5.5rem] lg:h-[9rem] flex items-center justify-center">
+                  <p
+                    className={`${titleFontSize[titles[titleIndex]]} font-serif-display italic font-medium text-foreground leading-[0.85] text-center whitespace-nowrap`}
                   >
-                    {titles[titleIndex]}
-                  </motion.p>
-                </AnimatePresence>
+                    {displayText}
+                    <motion.span
+                      animate={{ opacity: [1, 0] }}
+                      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                      className="inline-block w-[3px] sm:w-[4px] lg:w-[6px] h-[2.5rem] sm:h-[3.5rem] md:h-[4.5rem] lg:h-[7rem] bg-accent ml-1 align-middle"
+                    />
+                  </p>
+                </div>
 
                 {/* Portrait with gradient glow */}
                 <motion.div
