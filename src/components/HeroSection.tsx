@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import portrait from "@/assets/portrait-hero.png";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
@@ -7,143 +8,170 @@ import project4 from "@/assets/project-4.jpg";
 
 const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
 
-const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-});
+const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const HeroSection = () => {
+  const [ready, setReady] = useState(false);
+
+  // Preload portrait + project images before revealing
+  useEffect(() => {
+    const srcs = [portrait, project1, project2, project3, project4];
+    let loaded = 0;
+    srcs.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = img.onerror = () => {
+        loaded++;
+        if (loaded >= srcs.length) setReady(true);
+      };
+    });
+    // Fallback: show after 2s even if images haven't loaded
+    const timer = setTimeout(() => setReady(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const fadeUp = (delay: number) => ({
+    initial: { opacity: 0, y: 30 },
+    animate: ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
+    transition: { delay, duration: 0.7, ease: easing },
+  });
+
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Gradient background matching theme */}
+      {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.25)] to-[hsl(var(--neon)/0.45)]" />
 
       <div className="container relative z-10 mx-auto px-6 pt-28 md:pt-32">
-        {/* Badge */}
-        <motion.div {...fadeUp(0.1)} className="flex justify-center mb-8">
-          <span className="inline-flex items-center gap-2 text-sm text-muted-foreground tracking-wide">
-            <span className="text-lg">✦</span> MERN Stack Developer
-          </span>
-        </motion.div>
+        <AnimatePresence>
+          {ready && (
+            <>
+              {/* Badge */}
+              <motion.div {...fadeUp(0)} className="flex justify-center mb-8">
+                <span className="inline-flex items-center gap-2 text-sm text-muted-foreground tracking-wide">
+                  <span className="text-lg">✦</span> MERN Stack Developer
+                </span>
+              </motion.div>
 
-        {/* Text + Portrait stack */}
-        <div className="relative flex flex-col items-center">
-          <motion.h1
-            {...fadeUp(0.2)}
-            className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.95] text-center relative z-20"
-          >
-            Hi I'm Shubham
-          </motion.h1>
+              {/* Text + Portrait stack */}
+              <div className="relative flex flex-col items-center">
+                <motion.h1
+                  {...fadeUp(0.08)}
+                  className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.95] text-center relative z-20"
+                >
+                  Hi I'm Shubham
+                </motion.h1>
 
-          <motion.p
-            {...fadeUp(0.35)}
-            className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
-          >
-            Web Developer
-          </motion.p>
+                <motion.p
+                  {...fadeUp(0.16)}
+                  className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
+                >
+                  Web Developer
+                </motion.p>
 
-          {/* Portrait with gradient glow behind */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-[15] mx-auto -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-64 sm:w-72 md:w-80 lg:w-96 pointer-events-none"
-          >
-            {/* Radial gradient glow behind portrait */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 -inset-x-12 -inset-y-8 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--neon)/0.5)_0%,hsl(var(--neon-glow)/0.3)_40%,transparent_70%)] blur-2xl"
-            />
-            <img
-              src={portrait}
-              alt="Shubham Pandey – Web Developer"
-              className="relative z-10 w-full object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)] grayscale [mask-image:radial-gradient(ellipse_55%_50%_at_50%_40%,black_30%,transparent_85%)]"
-            />
-          </motion.div>
-        </div>
+                {/* Portrait with gradient glow */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92, y: 30 }}
+                  animate={ready ? { opacity: 1, scale: 1, y: 0 } : {}}
+                  transition={{ delay: 0.12, duration: 0.8, ease: easing }}
+                  className="relative z-[15] mx-auto -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-64 sm:w-72 md:w-80 lg:w-96 pointer-events-none"
+                >
+                  {/* Glow */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.6 }}
+                    animate={ready ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: 0.2, duration: 1, ease: easing }}
+                    className="absolute inset-0 -inset-x-12 -inset-y-8 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--neon)/0.5)_0%,hsl(var(--neon-glow)/0.3)_40%,transparent_70%)] blur-2xl"
+                  />
+                  <img
+                    src={portrait}
+                    alt="Shubham Pandey – Web Developer"
+                    className="relative z-10 w-full object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)] grayscale [mask-image:radial-gradient(ellipse_55%_50%_at_50%_40%,black_30%,transparent_85%)]"
+                  />
+                </motion.div>
+              </div>
 
-        {/* Availability + Description */}
-        <motion.div
-          {...fadeUp(0.6)}
-          className="relative z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between -mt-16 sm:-mt-20 md:-mt-24 gap-4"
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur-sm px-5 py-2 text-sm text-foreground shadow-sm">
-            <motion.span
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="h-2.5 w-2.5 rounded-full bg-accent"
-            />
-            Available for new opportunities
-          </span>
+              {/* Availability + Description */}
+              <motion.div
+                {...fadeUp(0.25)}
+                className="relative z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between -mt-16 sm:-mt-20 md:-mt-24 gap-4"
+              >
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur-sm px-5 py-2 text-sm text-foreground shadow-sm">
+                  <motion.span
+                    animate={{ scale: [1, 1.3, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="h-2.5 w-2.5 rounded-full bg-accent"
+                  />
+                  Available for new opportunities
+                </span>
 
-          <p className="max-w-xs text-sm text-foreground/70 sm:text-right leading-relaxed">
-            passionate about building scalable, responsive web applications that connect users with value.
-          </p>
-        </motion.div>
+                <p className="max-w-xs text-sm text-foreground/70 sm:text-right leading-relaxed">
+                  passionate about building scalable, responsive web applications that connect users with value.
+                </p>
+              </motion.div>
 
-        {/* CTA */}
-        <motion.div {...fadeUp(0.7)} className="relative z-20 flex justify-end mt-5">
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:scale-105"
-          >
-            <motion.span
-              animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              →
-            </motion.span>{" "}
-            Get in Touch
-          </a>
-        </motion.div>
+              {/* CTA */}
+              <motion.div {...fadeUp(0.32)} className="relative z-20 flex justify-end mt-5">
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:scale-105"
+                >
+                  <motion.span
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.span>{" "}
+                  Get in Touch
+                </a>
+              </motion.div>
 
-        {/* Logo strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
-          className="relative z-20 mt-14 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground"
-        >
-          {logos.map((logo, i) => (
-            <motion.span
-              key={logo}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 + i * 0.1 }}
-              className="flex items-center gap-1.5 hover:text-foreground transition-colors duration-300"
-            >
-              <span className="h-4 w-4 rounded-full border border-border" />
-              {logo}
-            </motion.span>
-          ))}
-        </motion.div>
+              {/* Logo strip */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="relative z-20 mt-14 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground"
+              >
+                {logos.map((logo, i) => (
+                  <motion.span
+                    key={logo}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 + i * 0.06 }}
+                    className="flex items-center gap-1.5 hover:text-foreground transition-colors duration-300"
+                  >
+                    <span className="h-4 w-4 rounded-full border border-border" />
+                    {logo}
+                  </motion.span>
+                ))}
+              </motion.div>
 
-        {/* Bento Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-14 pb-16 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto relative z-20"
-        >
-          {[
-            { src: project1, alt: "AI Mock Interview", className: "col-span-2 row-span-2" },
-            { src: project2, alt: "Aayuvardan", className: "" },
-            { src: project3, alt: "Maxton", className: "" },
-            { src: project4, alt: "Music Player", className: "col-span-2 aspect-[2/1]" },
-          ].map((p, i) => (
-            <motion.div
-              key={p.alt}
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className={`${p.className} overflow-hidden rounded-2xl bg-surface shadow-lg cursor-pointer`}
-            >
-              <img src={p.src} alt={p.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy" />
-            </motion.div>
-          ))}
-        </motion.div>
+              {/* Bento Grid */}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55, duration: 0.8, ease: easing }}
+                className="mt-14 pb-16 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto relative z-20"
+              >
+                {[
+                  { src: project1, alt: "AI Mock Interview", className: "col-span-2 row-span-2" },
+                  { src: project2, alt: "Aayuvardan", className: "" },
+                  { src: project3, alt: "Maxton", className: "" },
+                  { src: project4, alt: "Music Player", className: "col-span-2 aspect-[2/1]" },
+                ].map((p) => (
+                  <motion.div
+                    key={p.alt}
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className={`${p.className} overflow-hidden rounded-2xl bg-surface shadow-lg cursor-pointer`}
+                  >
+                    <img src={p.src} alt={p.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
