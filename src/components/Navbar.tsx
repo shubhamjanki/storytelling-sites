@@ -21,7 +21,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         <span className="text-lg font-semibold tracking-tight text-foreground">
-          Elian Ross
+          Shubham Pandey
         </span>
         <div className="hidden md:flex items-center gap-8">
           {["About", "Process", "Work", "Contact"].map((item) => (

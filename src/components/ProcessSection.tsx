@@ -2,9 +2,9 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const steps = [
-  { num: "01", title: "Discover", desc: "Understanding user needs, product goals, and challenges through research and strategy." },
-  { num: "02", title: "Design", desc: "Transforming insights into intuitive wireframes, prototypes, and visual design systems." },
-  { num: "03", title: "Deliver", desc: "Testing, refining, and launching the final product with clarity and precision." },
+  { num: "01", title: "Plan", desc: "Understanding requirements, defining architecture, and choosing the right tech stack for the project." },
+  { num: "02", title: "Develop", desc: "Building responsive frontends with React.js and robust backends with Node.js, Express, and MongoDB." },
+  { num: "03", title: "Deploy", desc: "Testing, optimizing performance, ensuring cross-browser compatibility, and launching." },
 ];
 
 const ProcessSection = () => {
@@ -20,9 +20,9 @@ const ProcessSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-sm text-muted-foreground mb-2">/ Our Process Explained</p>
+          <p className="text-sm text-muted-foreground mb-2">/ My Process</p>
           <h2 className="text-3xl md:text-4xl font-light text-foreground">
-            Here's how it <span className="font-serif-display italic">works</span>
+            Here's how I <span className="font-serif-display italic">work</span>
           </h2>
         </motion.div>
 

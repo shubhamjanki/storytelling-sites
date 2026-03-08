@@ -77,7 +77,7 @@ const HeroSection = () => {
             transition={{ delay: 1.1 }}
             className="mt-10 text-xs text-muted-foreground"
           >
-            Trusted by over <strong className="text-foreground">1200+ happy clients</strong> across digital products
+            Built with <strong className="text-foreground">MERN Stack</strong> — React.js · Node.js · MongoDB · Express.js
           </motion.div>
 
           {/* Logo strip */}

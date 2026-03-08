@@ -3,12 +3,12 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 
 const skills = [
-  { label: "Product Design", color: "bg-red-400" },
-  { label: "UI Design", color: "bg-accent" },
-  { label: "UX Research", color: "bg-blue-400" },
-  { label: "Design Systems", color: "bg-accent" },
-  { label: "Usability Testing", color: "bg-orange-400" },
-  { label: "Brand Identity", color: "bg-purple-400" },
+  { label: "React.js", color: "bg-blue-400" },
+  { label: "Node.js", color: "bg-accent" },
+  { label: "MongoDB", color: "bg-accent" },
+  { label: "Express.js", color: "bg-orange-400" },
+  { label: "REST APIs", color: "bg-purple-400" },
+  { label: "JavaScript (ES6+)", color: "bg-red-400" },
 ];
 
 const AboutSection = () => {
@@ -26,8 +26,8 @@ const AboutSection = () => {
         >
           <p className="text-sm text-muted-foreground mb-4">Hello!</p>
           <h2 className="text-3xl md:text-5xl font-light leading-snug text-foreground">
-            My focus is on blending clear strategy, thoughtful design, and user empathy to{" "}
-            <span className="font-serif-display italic">craft experiences that solve real problems</span>
+            I build scalable full-stack web applications with clean code and{" "}
+            <span className="font-serif-display italic">thoughtful user experiences</span>
           </h2>
         </motion.div>
 
