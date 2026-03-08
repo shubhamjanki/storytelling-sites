@@ -12,6 +12,7 @@ import ContactSection from "@/components/ContactSection";
 import SocialSection from "@/components/SocialSection";
 import Footer from "@/components/Footer";
 import Loader from "@/components/Loader";
+import ScrollUnmask from "@/components/ScrollUnmask";
 import useAmbientMusic from "@/hooks/useAmbientMusic";
 
 const Index = () => {
