@@ -7,90 +7,89 @@ import project4 from "@/assets/project-4.jpg";
 
 const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
 
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+});
+
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Lime-green to white gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.35)] to-[hsl(var(--neon)/0.55)]" />
+      {/* Gradient background matching theme */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.25)] to-[hsl(var(--neon)/0.45)]" />
 
-      <div className="container relative z-10 mx-auto px-6 pt-24">
-        {/* Award badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex justify-center mb-10"
-        >
-          <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+      <div className="container relative z-10 mx-auto px-6 pt-28 md:pt-32">
+        {/* Badge */}
+        <motion.div {...fadeUp(0.1)} className="flex justify-center mb-8">
+          <span className="inline-flex items-center gap-2 text-sm text-muted-foreground tracking-wide">
             <span className="text-lg">✦</span> MERN Stack Developer
           </span>
         </motion.div>
 
-        {/* Centered heading block with portrait overlapping */}
+        {/* Text + Portrait stack */}
         <div className="relative flex flex-col items-center">
-          {/* Main heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.7 }}
-            className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-foreground leading-[0.95] text-center relative z-20"
+            {...fadeUp(0.2)}
+            className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.95] text-center relative z-20"
           >
             Hi I'm Shubham
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.7 }}
-            className="text-5xl sm:text-6xl md:text-8xl lg:text-[10rem] font-serif-display italic font-medium text-foreground leading-[0.9] text-center relative z-10 -mt-1 md:-mt-4"
+            {...fadeUp(0.35)}
+            className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
           >
             Web Developer
           </motion.p>
 
-          {/* Portrait — centered at bottom of text block */}
+          {/* Portrait — sits below text, pulled up to overlap */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="relative z-[15] mx-auto -mt-16 sm:-mt-20 md:-mt-28 lg:-mt-36 w-72 sm:w-80 md:w-[26rem] lg:w-[30rem] pointer-events-none"
+            initial={{ opacity: 0, scale: 0.9, y: 40 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-[15] mx-auto -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-64 sm:w-72 md:w-80 lg:w-96 pointer-events-none"
           >
             <img
               src={portrait}
               alt="Shubham Pandey – Web Developer"
-              className="w-full object-contain drop-shadow-2xl"
+              className="w-full object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)]"
             />
           </motion.div>
         </div>
 
-        {/* Availability + Description row */}
+        {/* Availability + Description */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="relative z-20 flex flex-col md:flex-row items-start md:items-end justify-between mt-20 md:mt-28"
+          {...fadeUp(0.6)}
+          className="relative z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between mt-12 md:mt-16 gap-4"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur-sm px-5 py-2 text-sm text-foreground shadow-sm">
-            <span className="h-2.5 w-2.5 rounded-full bg-accent" />
+            <motion.span
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="h-2.5 w-2.5 rounded-full bg-accent"
+            />
             Available for new opportunities
           </span>
 
-          <p className="max-w-xs text-sm text-foreground/80 text-right mt-4 md:mt-0 leading-relaxed">
+          <p className="max-w-xs text-sm text-foreground/70 sm:text-right leading-relaxed">
             passionate about building scalable, responsive web applications that connect users with value.
           </p>
         </motion.div>
 
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="relative z-20 flex justify-end mt-6"
-        >
+        {/* CTA */}
+        <motion.div {...fadeUp(0.7)} className="relative z-20 flex justify-end mt-5">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
-            <span>→</span> Get in Touch
+            <motion.span
+              animate={{ x: [0, 4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              →
+            </motion.span>{" "}
+            Get in Touch
           </a>
         </motion.div>
 
@@ -98,36 +97,45 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
-          className="relative z-20 mt-16 flex flex-wrap justify-center gap-8 text-sm text-foreground/50"
+          transition={{ delay: 0.9, duration: 0.8 }}
+          className="relative z-20 mt-14 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground"
         >
-          {logos.map((logo) => (
-            <span key={logo} className="flex items-center gap-1.5">
-              <span className="h-4 w-4 rounded-full border border-foreground/20" />
+          {logos.map((logo, i) => (
+            <motion.span
+              key={logo}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 + i * 0.1 }}
+              className="flex items-center gap-1.5 hover:text-foreground transition-colors duration-300"
+            >
+              <span className="h-4 w-4 rounded-full border border-border" />
               {logo}
-            </span>
+            </motion.span>
           ))}
         </motion.div>
 
         {/* Bento Grid */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1, duration: 0.8 }}
-          className="mt-16 pb-16 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto relative z-20"
+          transition={{ delay: 1.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-14 pb-16 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto relative z-20"
         >
-          <div className="col-span-2 row-span-2 overflow-hidden rounded-2xl bg-surface shadow-lg">
-            <img src={project1} alt="AI Mock Interview" className="w-full h-full object-cover" loading="lazy" />
-          </div>
-          <div className="overflow-hidden rounded-2xl bg-surface shadow-lg">
-            <img src={project2} alt="Aayuvardan" className="w-full h-full object-cover" loading="lazy" />
-          </div>
-          <div className="overflow-hidden rounded-2xl bg-surface shadow-lg">
-            <img src={project3} alt="Maxton" className="w-full h-full object-cover" loading="lazy" />
-          </div>
-          <div className="col-span-2 overflow-hidden rounded-2xl bg-surface shadow-lg">
-            <img src={project4} alt="Music Player" className="w-full h-full object-cover aspect-[2/1]" loading="lazy" />
-          </div>
+          {[
+            { src: project1, alt: "AI Mock Interview", className: "col-span-2 row-span-2" },
+            { src: project2, alt: "Aayuvardan", className: "" },
+            { src: project3, alt: "Maxton", className: "" },
+            { src: project4, alt: "Music Player", className: "col-span-2 aspect-[2/1]" },
+          ].map((p, i) => (
+            <motion.div
+              key={p.alt}
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className={`${p.className} overflow-hidden rounded-2xl bg-surface shadow-lg cursor-pointer`}
+            >
+              <img src={p.src} alt={p.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy" />
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
