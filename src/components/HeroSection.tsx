@@ -79,12 +79,18 @@ const HeroSection = () => {
                   Hi I'm Shubham
                 </motion.h1>
 
-                <motion.p
-                  {...fadeUp(0.16)}
-                  className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
-                >
-                  Web Developer
-                </motion.p>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={titles[titleIndex]}
+                    initial={{ opacity: 0, y: 30, rotateX: 40 }}
+                    animate={ready ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                    exit={{ opacity: 0, y: -30, rotateX: -40 }}
+                    transition={{ duration: 0.5, ease: easing }}
+                    className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
+                  >
+                    {titles[titleIndex]}
+                  </motion.p>
+                </AnimatePresence>
 
                 {/* Portrait with gradient glow */}
                 <motion.div
