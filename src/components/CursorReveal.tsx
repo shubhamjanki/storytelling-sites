@@ -13,7 +13,7 @@ const CursorReveal = ({ portrait, className = "", imgClassName = "" }: CursorRev
   const containerRef = useRef<HTMLDivElement>(null);
 
   const maskImage = useTransform([x, y], ([latestX, latestY]: number[]) =>
-    `radial-gradient(circle 160px at ${latestX}px ${latestY}px, black 20%, transparent 70%)`
+    `radial-gradient(circle 260px at ${latestX}px ${latestY}px, black 30%, transparent 80%)`
   );
 
   const handleMouseMove = useCallback(
