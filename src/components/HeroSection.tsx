@@ -11,18 +11,47 @@ const titles = ["Web Developer", "Software Engineer", "Tech Enthusiast", "Vibe C
 
 const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const titleFontSize: Record<string, string> = {
+  "Web Developer": "text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem]",
+  "Software Engineer": "text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[7rem]",
+  "Tech Enthusiast": "text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[7rem]",
+  "Vibe Coder": "text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem]",
+};
+
 const HeroSection = () => {
   const [ready, setReady] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  // Cycle through titles
+  // Typewriter effect
   useEffect(() => {
     if (!ready) return;
-    const interval = setInterval(() => {
-      setTitleIndex((prev) => (prev + 1) % titles.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, [ready]);
+    const currentTitle = titles[titleIndex];
+
+    if (!isDeleting) {
+      if (displayText.length < currentTitle.length) {
+        const timeout = setTimeout(() => {
+          setDisplayText(currentTitle.slice(0, displayText.length + 1));
+        }, 80);
+        return () => clearTimeout(timeout);
+      } else {
+        // Pause before deleting
+        const timeout = setTimeout(() => setIsDeleting(true), 1800);
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      if (displayText.length > 0) {
+        const timeout = setTimeout(() => {
+          setDisplayText(displayText.slice(0, -1));
+        }, 40);
+        return () => clearTimeout(timeout);
+      } else {
+        setIsDeleting(false);
+        setTitleIndex((prev) => (prev + 1) % titles.length);
+      }
+    }
+  }, [ready, displayText, isDeleting, titleIndex]);
   // Preload portrait + project images before revealing
   useEffect(() => {
     const srcs = [portrait, project1, project2, project3, project4];
@@ -79,18 +108,18 @@ const HeroSection = () => {
                   Hi I'm Shubham
                 </motion.h1>
 
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={titles[titleIndex]}
-                    initial={{ opacity: 0, y: 30, rotateX: 40 }}
-                    animate={ready ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-                    exit={{ opacity: 0, y: -30, rotateX: -40 }}
-                    transition={{ duration: 0.5, ease: easing }}
-                    className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
+                <div className="relative z-10 -mt-1 md:-mt-2 h-[3.5rem] sm:h-[4.5rem] md:h-[5.5rem] lg:h-[9rem] flex items-center justify-center">
+                  <p
+                    className={`${titleFontSize[titles[titleIndex]]} font-serif-display italic font-medium text-foreground leading-[0.85] text-center whitespace-nowrap`}
                   >
-                    {titles[titleIndex]}
-                  </motion.p>
-                </AnimatePresence>
+                    {displayText}
+                    <motion.span
+                      animate={{ opacity: [1, 0] }}
+                      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                      className="inline-block w-[3px] sm:w-[4px] lg:w-[6px] h-[2.5rem] sm:h-[3.5rem] md:h-[4.5rem] lg:h-[7rem] bg-accent ml-1 align-middle"
+                    />
+                  </p>
+                </div>
 
                 {/* Portrait with gradient glow */}
                 <motion.div
