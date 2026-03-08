@@ -177,7 +177,7 @@ const CursorMaskReveal = ({
       // Draw background (color) only in the hole
       ctx.save();
       ctx.globalCompositeOperation = "destination-over";
-      drawCover(ctx, images.bg, w, h);
+      drawContain(ctx, images.bg, w, h);
       ctx.restore();
     }
   }, [images, containerSize, maskPos, maskWidth, isInside, overlayColor]);
