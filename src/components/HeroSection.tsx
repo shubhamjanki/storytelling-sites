@@ -45,7 +45,7 @@ const HeroSection = () => {
           >
             <img
               src={portrait}
-              alt="Elian Ross – Product Designer"
+              alt="Shubham Pandey – Web Developer"
               className="relative z-10 w-full grayscale-[30%] mix-blend-luminosity"
             />
           </motion.div>
