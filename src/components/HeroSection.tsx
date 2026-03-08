@@ -21,7 +21,23 @@ const titleFontSize: Record<string, string> = {
 
 const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
   const ready = loaderDone;
+  const sectionRef = useRef<HTMLElement>(null);
   const [titleIndex, setTitleIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Parallax transforms
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const glowScale = useTransform(scrollYProgress, [0, 0.6], [1, 1.4]);
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
