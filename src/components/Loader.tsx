@@ -38,7 +38,6 @@ const Loader = ({ onComplete, onEnter }: LoaderProps) => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setPhase("ready");
           return 100;
         }
         const increment = prev < 60 ? 2 : prev < 85 ? 1.5 : 0.8;
@@ -47,6 +46,13 @@ const Loader = ({ onComplete, onEnter }: LoaderProps) => {
     }, 30);
     return () => clearInterval(interval);
   }, []);
+
+  // Only show "ready" when both progress is done and images are loaded
+  useEffect(() => {
+    if (progress >= 100 && imagesLoaded) {
+      setPhase("ready");
+    }
+  }, [progress, imagesLoaded]);
 
   const handleEnter = () => {
     if (phase !== "ready") return;
