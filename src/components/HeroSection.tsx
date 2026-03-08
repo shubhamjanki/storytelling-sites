@@ -37,7 +37,15 @@ const HeroSection = () => {
   });
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section
+      className="relative min-h-screen overflow-hidden"
+      onClick={(e) => {
+        const target = e.target as HTMLElement;
+        if (!target.closest("a, button, [role='button']")) {
+          window.open("/resume.pdf", "_blank");
+        }
+      }}
+    >
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.25)] to-[hsl(var(--neon)/0.45)]" />
 
