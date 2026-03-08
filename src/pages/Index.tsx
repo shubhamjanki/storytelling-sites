@@ -53,6 +53,7 @@ const Index = () => {
         <WorkSection />
         <ExperienceSection />
         <ContactSection />
+        <SocialSection />
         <Footer />
       </motion.div>
     </>
