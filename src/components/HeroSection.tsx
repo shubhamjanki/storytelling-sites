@@ -68,7 +68,7 @@ const HeroSection = () => {
         {/* Availability + Description */}
         <motion.div
           {...fadeUp(0.6)}
-          className="relative z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between mt-12 md:mt-16 gap-4"
+          className="relative z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between -mt-16 sm:-mt-20 md:-mt-24 gap-4"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur-sm px-5 py-2 text-sm text-foreground shadow-sm">
             <motion.span
