@@ -11,18 +11,47 @@ const titles = ["Web Developer", "Software Engineer", "Tech Enthusiast", "Vibe C
 
 const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const titleFontSize: Record<string, string> = {
+  "Web Developer": "text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem]",
+  "Software Engineer": "text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[7rem]",
+  "Tech Enthusiast": "text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[7rem]",
+  "Vibe Coder": "text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem]",
+};
+
 const HeroSection = () => {
   const [ready, setReady] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  // Cycle through titles
+  // Typewriter effect
   useEffect(() => {
     if (!ready) return;
-    const interval = setInterval(() => {
-      setTitleIndex((prev) => (prev + 1) % titles.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, [ready]);
+    const currentTitle = titles[titleIndex];
+
+    if (!isDeleting) {
+      if (displayText.length < currentTitle.length) {
+        const timeout = setTimeout(() => {
+          setDisplayText(currentTitle.slice(0, displayText.length + 1));
+        }, 80);
+        return () => clearTimeout(timeout);
+      } else {
+        // Pause before deleting
+        const timeout = setTimeout(() => setIsDeleting(true), 1800);
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      if (displayText.length > 0) {
+        const timeout = setTimeout(() => {
+          setDisplayText(displayText.slice(0, -1));
+        }, 40);
+        return () => clearTimeout(timeout);
+      } else {
+        setIsDeleting(false);
+        setTitleIndex((prev) => (prev + 1) % titles.length);
+      }
+    }
+  }, [ready, displayText, isDeleting, titleIndex]);
   // Preload portrait + project images before revealing
   useEffect(() => {
     const srcs = [portrait, project1, project2, project3, project4];
