@@ -128,7 +128,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, scale: 0.92, y: 30 }}
                   animate={ready ? { opacity: 1, scale: 1, y: 0 } : {}}
                   transition={{ delay: 0.12, duration: 0.8, ease: easing }}
-                  className="relative z-[15] mx-auto -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-64 sm:w-72 md:w-80 lg:w-96"
+                  className="relative z-[15] mx-auto -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-64 sm:w-72 md:w-80 lg:w-96 pointer-events-none"
                 >
                   {/* Glow */}
                   <motion.div
