@@ -137,10 +137,12 @@ const HeroSection = () => {
                     transition={{ delay: 0.2, duration: 1, ease: easing }}
                     className="absolute inset-0 -inset-x-12 -inset-y-8 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--neon)/0.5)_0%,hsl(var(--neon-glow)/0.3)_40%,transparent_70%)] blur-2xl"
                   />
-                  <img
-                    src={portrait}
+                  <CursorMaskReveal
+                    backgroundImage={portraitColor}
+                    foregroundImage={portrait}
+                    maskWidth={180}
+                    className="relative z-10 w-full aspect-square"
                     alt="Shubham Pandey – Web Developer"
-                    className="relative z-10 w-full object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)] grayscale [mask-image:radial-gradient(ellipse_65%_60%_at_50%_45%,black_45%,transparent_95%)]"
                   />
                 </motion.div>
               </div>
