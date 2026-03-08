@@ -76,6 +76,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
 
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-screen overflow-hidden"
       onClick={(e) => {
         const target = e.target as HTMLElement;
@@ -84,8 +85,11 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
         }
       }}
     >
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.25)] to-[hsl(var(--neon)/0.45)]" />
+      {/* Parallax gradient background */}
+      <motion.div
+        style={{ y: bgY }}
+        className="absolute inset-0 -top-20 -bottom-20 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.25)] to-[hsl(var(--neon)/0.45)]"
+      />
 
       <div className="container relative z-10 mx-auto px-6 pt-28 md:pt-32">
         <AnimatePresence>
