@@ -19,8 +19,9 @@ const titleFontSize: Record<string, string> = {
   "Vibe Coder": "text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem]",
 };
 
-const HeroSection = () => {
-  const [ready, setReady] = useState(false);
+const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
+  const [imagesReady, setImagesReady] = useState(false);
+  const ready = imagesReady && loaderDone;
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
