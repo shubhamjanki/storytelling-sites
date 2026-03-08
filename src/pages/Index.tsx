@@ -12,6 +12,7 @@ import ContactSection from "@/components/ContactSection";
 import SocialSection from "@/components/SocialSection";
 import Footer from "@/components/Footer";
 import Loader from "@/components/Loader";
+import ScrollUnmask from "@/components/ScrollUnmask";
 import useAmbientMusic from "@/hooks/useAmbientMusic";
 
 const Index = () => {
@@ -47,12 +48,20 @@ const Index = () => {
         <Navbar musicPlaying={musicPlaying} onToggleMusic={handleToggleMusic} />
         <HeroSection loaderDone={!loading} />
         <AboutSection />
-        <TechSection />
+        <ScrollUnmask>
+          <TechSection />
+        </ScrollUnmask>
         <ProcessSection />
-        <TestimonialsSection />
-        <WorkSection />
+        <ScrollUnmask>
+          <TestimonialsSection />
+        </ScrollUnmask>
+        <ScrollUnmask>
+          <WorkSection />
+        </ScrollUnmask>
         <ExperienceSection />
-        <ContactSection />
+        <ScrollUnmask>
+          <ContactSection />
+        </ScrollUnmask>
         <SocialSection />
         <Footer />
       </motion.div>
