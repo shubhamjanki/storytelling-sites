@@ -93,7 +93,7 @@ const HeroSection = () => {
                   <img
                     src={portrait}
                     alt="Shubham Pandey – Web Developer"
-                    className="relative z-10 w-full object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)] grayscale [mask-image:radial-gradient(ellipse_55%_50%_at_50%_40%,black_30%,transparent_85%)]"
+                    className="relative z-10 w-full object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)] grayscale [mask-image:radial-gradient(ellipse_65%_60%_at_50%_45%,black_45%,transparent_95%)]"
                   />
                 </motion.div>
               </div>
