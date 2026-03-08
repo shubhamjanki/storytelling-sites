@@ -52,7 +52,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-[35%] w-56 sm:w-64 md:w-80 lg:w-[22rem] z-[15] pointer-events-none"
+            className="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-[45%] w-72 sm:w-80 md:w-[26rem] lg:w-[30rem] z-[15] pointer-events-none"
           >
             <img
               src={portrait}
