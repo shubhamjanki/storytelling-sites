@@ -63,11 +63,10 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
       img.src = src;
       img.onload = img.onerror = () => {
         loaded++;
-        if (loaded >= srcs.length) setReady(true);
+        if (loaded >= srcs.length) setImagesReady(true);
       };
     });
-    // Fallback: show after 2s even if images haven't loaded
-    const timer = setTimeout(() => setReady(true), 2000);
+    const timer = setTimeout(() => setImagesReady(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
