@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import portrait from "@/assets/portrait.png";
 
-const logos = ["FocalPoint", "Screentime", "Segment", "Shutterframe", "Lightspeed"];
+const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
 
 const HeroSection = () => {
   return (
