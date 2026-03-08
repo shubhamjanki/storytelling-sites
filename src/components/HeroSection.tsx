@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import portrait from "@/assets/portrait-hero.png";
 import CursorReveal from "@/components/CursorReveal";
 import project1 from "@/assets/project-1.jpg";
