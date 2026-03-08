@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import portrait from "@/assets/portrait-hero.png";
+import portraitColor from "@/assets/portrait.png";
+import CursorMaskReveal from "@/components/CursorMaskReveal";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
