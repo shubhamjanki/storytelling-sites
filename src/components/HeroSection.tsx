@@ -103,7 +103,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
               </motion.div>
 
               {/* Text + Portrait stack */}
-              <div className="relative flex flex-col items-center">
+              <motion.div className="relative flex flex-col items-center" style={{ y: titleY, opacity: titleOpacity }}>
                 <motion.h1
                   {...fadeUp(0.08)}
                   className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.95] text-center relative z-20"
@@ -124,11 +124,12 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                   </p>
                 </div>
 
-                {/* Portrait with gradient glow */}
+                {/* Portrait with gradient glow - parallax offset */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.92, y: 30 }}
                   animate={ready ? { opacity: 1, scale: 1, y: 0 } : {}}
                   transition={{ delay: 0.12, duration: 0.8, ease: easing }}
+                  style={{ y: portraitY }}
                   className="relative z-[15] mx-auto -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-64 sm:w-72 md:w-80 lg:w-96"
                 >
                   {/* Glow */}
@@ -136,6 +137,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                     initial={{ opacity: 0, scale: 0.6 }}
                     animate={ready ? { opacity: 1, scale: 1 } : {}}
                     transition={{ delay: 0.2, duration: 1, ease: easing }}
+                    style={{ scale: glowScale, opacity: glowOpacity }}
                     className="absolute inset-0 -inset-x-12 -inset-y-8 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--neon)/0.5)_0%,hsl(var(--neon-glow)/0.3)_40%,transparent_70%)] blur-2xl"
                   />
                   <CursorReveal
