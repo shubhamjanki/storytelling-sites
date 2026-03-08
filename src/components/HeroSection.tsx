@@ -10,8 +10,8 @@ const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Full neon gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.3)] to-[hsl(var(--neon)/0.6)]" />
+      {/* Lime-green to white gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.35)] to-[hsl(var(--neon)/0.55)]" />
 
       <div className="container relative z-10 mx-auto px-6 pt-24">
         {/* Award badge */}
@@ -19,20 +19,21 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="flex justify-center mb-8"
+          className="flex justify-center mb-10"
         >
           <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
             <span className="text-lg">✦</span> MERN Stack Developer
           </span>
         </motion.div>
 
-        {/* Centered heading with portrait behind */}
-        <div className="relative text-center">
+        {/* Centered heading block with portrait overlapping */}
+        <div className="relative flex flex-col items-center">
+          {/* Main heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-bold text-foreground leading-[0.95] relative z-20"
+            className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-foreground leading-[0.95] text-center relative z-20"
           >
             Hi I'm Shubham
           </motion.h1>
@@ -41,22 +42,22 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.7 }}
-            className="text-6xl md:text-8xl lg:text-[10rem] font-serif-display italic font-medium text-foreground leading-[0.9] relative z-10 -mt-2 md:-mt-4"
+            className="text-5xl sm:text-6xl md:text-8xl lg:text-[10rem] font-serif-display italic font-medium text-foreground leading-[0.9] text-center relative z-10 -mt-1 md:-mt-4"
           >
             Web Developer
           </motion.p>
 
-          {/* Portrait - centered, overlapping behind text */}
+          {/* Portrait — centered, overlapping the text from below */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="absolute left-1/2 -translate-x-1/2 bottom-0 w-64 md:w-80 lg:w-96 z-[15] translate-y-[30%]"
+            className="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-[35%] w-56 sm:w-64 md:w-80 lg:w-[22rem] z-[15] pointer-events-none"
           >
             <img
               src={portrait}
               alt="Shubham Pandey – Web Developer"
-              className="w-full grayscale mix-blend-multiply"
+              className="w-full object-contain drop-shadow-2xl"
             />
           </motion.div>
         </div>
@@ -66,9 +67,9 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="relative z-20 flex flex-col md:flex-row items-center justify-between mt-16 md:mt-24"
+          className="relative z-20 flex flex-col md:flex-row items-start md:items-end justify-between mt-20 md:mt-28"
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur-sm px-5 py-2 text-sm text-foreground">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur-sm px-5 py-2 text-sm text-foreground shadow-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-accent" />
             Available for new opportunities
           </span>
