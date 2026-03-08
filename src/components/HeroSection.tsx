@@ -31,9 +31,9 @@ const HeroSection = () => {
             transition={{ delay: 0.3, duration: 0.7 }}
             className="text-5xl md:text-7xl lg:text-8xl font-light text-foreground leading-[1.1]"
           >
-            Hi I'm Elian
+            Hi I'm Shubham
             <br />
-            <span className="font-serif-display italic font-medium">Product Designer</span>
+            <span className="font-serif-display italic font-medium">Web Developer</span>
           </motion.h1>
 
           {/* Portrait */}
