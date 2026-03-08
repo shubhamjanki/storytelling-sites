@@ -53,21 +53,6 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
       }
     }
   }, [ready, displayText, isDeleting, titleIndex]);
-  // Preload portrait + project images before revealing
-  useEffect(() => {
-    const srcs = [portrait, project1, project2, project3, project4];
-    let loaded = 0;
-    srcs.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = img.onerror = () => {
-        loaded++;
-        if (loaded >= srcs.length) setImagesReady(true);
-      };
-    });
-    const timer = setTimeout(() => setImagesReady(true), 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const fadeUp = (delay: number) => ({
     initial: { opacity: 0, y: 30 },
