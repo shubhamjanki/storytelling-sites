@@ -10,7 +10,7 @@ interface CursorMaskRevealProps {
   alt?: string;
 }
 
-function drawCover(
+function drawContain(
   ctx: CanvasRenderingContext2D,
   img: HTMLImageElement,
   w: number,
@@ -19,7 +19,7 @@ function drawCover(
   const iw = img.width;
   const ih = img.height;
   if (iw === 0 || ih === 0) return;
-  const scale = Math.max(w / iw, h / ih);
+  const scale = Math.min(w / iw, h / ih);
   const dw = iw * scale;
   const dh = ih * scale;
   const dx = (w - dw) / 2;
@@ -144,7 +144,7 @@ const CursorMaskReveal = ({
     // Draw foreground with grayscale filter
     ctx.save();
     ctx.filter = "grayscale(100%)";
-    drawCover(ctx, images.fg, w, h);
+    drawContain(ctx, images.fg, w, h);
     ctx.restore();
 
     // Overlay
@@ -177,7 +177,7 @@ const CursorMaskReveal = ({
       // Draw background (color) only in the hole
       ctx.save();
       ctx.globalCompositeOperation = "destination-over";
-      drawCover(ctx, images.bg, w, h);
+      drawContain(ctx, images.bg, w, h);
       ctx.restore();
     }
   }, [images, containerSize, maskPos, maskWidth, isInside, overlayColor]);
