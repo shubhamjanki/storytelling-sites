@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import portrait from "@/assets/portrait-hero.png";
 import project1 from "@/assets/project-1.jpg";
@@ -7,6 +7,7 @@ import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
 
 const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
+const titles = ["Web Developer", "Software Engineer", "Tech Enthusiast", "Vibe Coder"];
 
 const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
