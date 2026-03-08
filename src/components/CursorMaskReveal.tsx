@@ -10,7 +10,7 @@ interface CursorMaskRevealProps {
   alt?: string;
 }
 
-function drawCover(
+function drawContain(
   ctx: CanvasRenderingContext2D,
   img: HTMLImageElement,
   w: number,
@@ -19,7 +19,7 @@ function drawCover(
   const iw = img.width;
   const ih = img.height;
   if (iw === 0 || ih === 0) return;
-  const scale = Math.max(w / iw, h / ih);
+  const scale = Math.min(w / iw, h / ih);
   const dw = iw * scale;
   const dh = ih * scale;
   const dx = (w - dw) / 2;
