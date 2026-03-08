@@ -7,25 +7,28 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-32" ref={ref}>
-      <div className="container mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7 }}
+        className="mx-6 rounded-3xl neon-gradient-solid px-6 py-24 text-center"
+      >
+        <p className="text-sm text-foreground/70 mb-4 font-serif-display italic">/ Let's Talk</p>
+        <h2 className="text-4xl md:text-6xl font-light text-foreground leading-tight">
+          Let's Make It
+          <br />
+          <span className="font-serif-display italic">Happen</span>
+        </h2>
+        <p className="mt-6 max-w-md mx-auto text-sm text-foreground/70 leading-relaxed">
+          I'm always open to new opportunities, collaborations, and creative challenges. Let's work together to bring your ideas to life.
+        </p>
+        <a
+          href="mailto:shubhamjanki000@gmail.com"
+          className="mt-10 inline-flex items-center gap-2 rounded-full bg-foreground px-8 py-4 text-sm font-medium text-background hover:opacity-90 transition-opacity"
         >
-          <h2 className="text-4xl md:text-6xl font-light text-foreground leading-tight">
-            Let's build something
-            <br />
-            <span className="font-serif-display italic">great together</span>
-          </h2>
-          <a
-            href="mailto:shubhamjanki000@gmail.com"
-            className="mt-10 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
-          >
-            <span>→</span> Get In Touch
-          </a>
-        </motion.div>
-      </div>
+          <span>→</span> Get In Touch
+        </a>
+      </motion.div>
     </section>
   );
 };
