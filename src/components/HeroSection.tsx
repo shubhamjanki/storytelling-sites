@@ -13,7 +13,16 @@ const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const HeroSection = () => {
   const [ready, setReady] = useState(false);
+  const [titleIndex, setTitleIndex] = useState(0);
 
+  // Cycle through titles
+  useEffect(() => {
+    if (!ready) return;
+    const interval = setInterval(() => {
+      setTitleIndex((prev) => (prev + 1) % titles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [ready]);
   // Preload portrait + project images before revealing
   useEffect(() => {
     const srcs = [portrait, project1, project2, project3, project4];
