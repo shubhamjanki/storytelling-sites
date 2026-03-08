@@ -81,12 +81,25 @@ const Loader = ({ onComplete, onEnter }: LoaderProps) => {
               : {}
           }
         >
-          {/* Ambient glow */}
+          {/* Spiral animation */}
           <motion.div
-            className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--neon)/0.15)_0%,transparent_70%)]"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
+            className="absolute inset-0 flex items-center justify-center opacity-30"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 0.3, scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          >
+            <Spiral
+              totalDots={500}
+              dotRadius={1.5}
+              duration={4}
+              dotColor="hsl(90, 85%, 50%)"
+              size={500}
+              minOpacity={0.15}
+              maxOpacity={0.7}
+              minScale={0.3}
+              maxScale={2}
+            />
+          </motion.div>
 
           {/* Name reveal */}
           <motion.div
