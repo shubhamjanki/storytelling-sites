@@ -1,40 +1,55 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const Loader = ({ onComplete }: { onComplete: () => void }) => {
+interface LoaderProps {
+  onComplete: () => void;
+  onEnter?: () => void;
+}
+
+const Loader = ({ onComplete, onEnter }: LoaderProps) => {
   const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState<"loading" | "revealing">("loading");
+  const [phase, setPhase] = useState<"loading" | "ready" | "revealing">("loading");
 
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setPhase("revealing");
-          setTimeout(onComplete, 800);
+          setPhase("ready");
           return 100;
         }
-        // Accelerating progress
         const increment = prev < 60 ? 2 : prev < 85 ? 1.5 : 0.8;
         return Math.min(prev + increment, 100);
       });
     }, 30);
     return () => clearInterval(interval);
-  }, [onComplete]);
+  }, []);
+
+  const handleEnter = () => {
+    if (phase !== "ready") return;
+    onEnter?.();
+    setPhase("revealing");
+    setTimeout(onComplete, 800);
+  };
 
   return (
     <AnimatePresence>
       {phase !== "revealing" || progress <= 100 ? (
         <motion.div
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
-          exit={{ 
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background cursor-pointer"
+          onClick={handleEnter}
+          exit={{
             clipPath: "circle(0% at 50% 50%)",
-            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
           }}
-          animate={phase === "revealing" ? { 
-            clipPath: "circle(0% at 50% 50%)",
-            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
-          } : {}}
+          animate={
+            phase === "revealing"
+              ? {
+                  clipPath: "circle(0% at 50% 50%)",
+                  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 },
+                }
+              : {}
+          }
         >
           {/* Ambient glow */}
           <motion.div
@@ -89,42 +104,38 @@ const Loader = ({ onComplete }: { onComplete: () => void }) => {
               />
             </motion.div>
 
-            {/* Percentage */}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              transition={{ delay: 0.6 }}
-              className="text-xs text-muted-foreground tabular-nums"
-            >
-              {Math.round(progress)}%
-            </motion.span>
+            {/* Click to enter / percentage */}
+            <AnimatePresence mode="wait">
+              {phase === "ready" ? (
+                <motion.span
+                  key="enter"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="text-xs text-accent tracking-widest uppercase"
+                >
+                  Click anywhere to enter
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="progress"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.6 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="text-xs text-muted-foreground tabular-nums"
+                >
+                  {Math.round(progress)}%
+                </motion.span>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Corner accents */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            transition={{ delay: 0.3 }}
-            className="absolute top-8 left-8 w-8 h-8 border-l-2 border-t-2 border-accent"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            transition={{ delay: 0.35 }}
-            className="absolute top-8 right-8 w-8 h-8 border-r-2 border-t-2 border-accent"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            transition={{ delay: 0.4 }}
-            className="absolute bottom-8 left-8 w-8 h-8 border-l-2 border-b-2 border-accent"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            transition={{ delay: 0.45 }}
-            className="absolute bottom-8 right-8 w-8 h-8 border-r-2 border-b-2 border-accent"
-          />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} transition={{ delay: 0.3 }} className="absolute top-8 left-8 w-8 h-8 border-l-2 border-t-2 border-accent" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} transition={{ delay: 0.35 }} className="absolute top-8 right-8 w-8 h-8 border-r-2 border-t-2 border-accent" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} transition={{ delay: 0.4 }} className="absolute bottom-8 left-8 w-8 h-8 border-l-2 border-b-2 border-accent" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} transition={{ delay: 0.45 }} className="absolute bottom-8 right-8 w-8 h-8 border-r-2 border-b-2 border-accent" />
         </motion.div>
       ) : null}
     </AnimatePresence>
