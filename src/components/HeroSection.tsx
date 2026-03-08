@@ -47,12 +47,12 @@ const HeroSection = () => {
             Web Developer
           </motion.p>
 
-          {/* Portrait — centered, overlapping the text from below */}
+          {/* Portrait — centered at bottom of text block */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-[45%] w-72 sm:w-80 md:w-[26rem] lg:w-[30rem] z-[15] pointer-events-none"
+            className="relative z-[15] mx-auto -mt-16 sm:-mt-20 md:-mt-28 lg:-mt-36 w-72 sm:w-80 md:w-[26rem] lg:w-[30rem] pointer-events-none"
           >
             <img
               src={portrait}
