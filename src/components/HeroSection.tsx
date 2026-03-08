@@ -146,7 +146,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                     imgClassName="object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)] [mask-image:radial-gradient(ellipse_65%_60%_at_50%_45%,black_45%,transparent_95%)]"
                   />
                 </motion.div>
-              </div>
+              </motion.div>
 
               {/* Availability + Description */}
               <motion.div
