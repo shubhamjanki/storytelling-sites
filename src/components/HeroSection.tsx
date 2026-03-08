@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import portrait from "@/assets/portrait-hero.png";
 import project1 from "@/assets/project-1.jpg";
@@ -7,12 +7,22 @@ import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
 
 const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
+const titles = ["Web Developer", "Software Engineer", "Tech Enthusiast", "Vibe Coder"];
 
 const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const HeroSection = () => {
   const [ready, setReady] = useState(false);
+  const [titleIndex, setTitleIndex] = useState(0);
 
+  // Cycle through titles
+  useEffect(() => {
+    if (!ready) return;
+    const interval = setInterval(() => {
+      setTitleIndex((prev) => (prev + 1) % titles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [ready]);
   // Preload portrait + project images before revealing
   useEffect(() => {
     const srcs = [portrait, project1, project2, project3, project4];
@@ -69,12 +79,18 @@ const HeroSection = () => {
                   Hi I'm Shubham
                 </motion.h1>
 
-                <motion.p
-                  {...fadeUp(0.16)}
-                  className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
-                >
-                  Web Developer
-                </motion.p>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={titles[titleIndex]}
+                    initial={{ opacity: 0, y: 30, rotateX: 40 }}
+                    animate={ready ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                    exit={{ opacity: 0, y: -30, rotateX: -40 }}
+                    transition={{ duration: 0.5, ease: easing }}
+                    className="text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem] font-serif-display italic font-medium text-foreground leading-[0.85] text-center relative z-10 -mt-1 md:-mt-2"
+                  >
+                    {titles[titleIndex]}
+                  </motion.p>
+                </AnimatePresence>
 
                 {/* Portrait with gradient glow */}
                 <motion.div
