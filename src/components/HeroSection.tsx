@@ -57,7 +57,7 @@ const HeroSection = () => {
             transition={{ delay: 0.7 }}
             className="max-w-md text-muted-foreground mb-6"
           >
-            Passionate about creating intuitive digital experiences that connect users with value.
+            MERN stack developer passionate about building scalable, responsive, and performance-optimized web applications.
           </motion.p>
 
           <motion.a
