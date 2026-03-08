@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import Spiral from "@/components/Spiral";
 import portrait from "@/assets/portrait-hero.png";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
