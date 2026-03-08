@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import portrait from "@/assets/portrait.png";
 
-const logos = ["FocalPoint", "Screentime", "Segment", "Shutterframe", "Lightspeed"];
+const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
 
 const HeroSection = () => {
   return (
@@ -31,9 +31,9 @@ const HeroSection = () => {
             transition={{ delay: 0.3, duration: 0.7 }}
             className="text-5xl md:text-7xl lg:text-8xl font-light text-foreground leading-[1.1]"
           >
-            Hi I'm Elian
+            Hi I'm Shubham
             <br />
-            <span className="font-serif-display italic font-medium">Product Designer</span>
+            <span className="font-serif-display italic font-medium">Web Developer</span>
           </motion.h1>
 
           {/* Portrait */}
@@ -45,7 +45,7 @@ const HeroSection = () => {
           >
             <img
               src={portrait}
-              alt="Elian Ross – Product Designer"
+              alt="Shubham Pandey – Web Developer"
               className="relative z-10 w-full grayscale-[30%] mix-blend-luminosity"
             />
           </motion.div>
@@ -57,7 +57,7 @@ const HeroSection = () => {
             transition={{ delay: 0.7 }}
             className="max-w-md text-muted-foreground mb-6"
           >
-            Passionate about creating intuitive digital experiences that connect users with value.
+            MERN stack developer passionate about building scalable, responsive, and performance-optimized web applications.
           </motion.p>
 
           <motion.a
@@ -77,7 +77,7 @@ const HeroSection = () => {
             transition={{ delay: 1.1 }}
             className="mt-10 text-xs text-muted-foreground"
           >
-            Trusted by over <strong className="text-foreground">1200+ happy clients</strong> across digital products
+            Built with <strong className="text-foreground">MERN Stack</strong> — React.js · Node.js · MongoDB · Express.js
           </motion.div>
 
           {/* Logo strip */}

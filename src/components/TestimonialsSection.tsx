@@ -3,14 +3,14 @@ import { useRef } from "react";
 
 const testimonials = [
   {
-    quote: "Working with Elian was seamless from start to finish. He understood our goals quickly, nailed the right aesthetic, and delivered a design system that scaled perfectly with our growing product line.",
-    name: "Daniel Reed",
-    role: "Founder of Moxie",
+    quote: "Shubham delivered a clean, responsive website that perfectly represented our brand. His attention to detail and understanding of modern web technologies made the project a smooth experience.",
+    name: "Aayuvardan Lifescience",
+    role: "Client – Business Website",
   },
   {
-    quote: "Elian brought our product vision to life with incredible attention to detail. His ability to balance functionality with user empathy made our platform feel beautiful — and genuinely useful.",
-    name: "Sarah Chen",
-    role: "Product Manager at FinCo",
+    quote: "Working with Shubham on our healthcare platform was excellent. He built dynamic components, ensured cross-browser compatibility, and delivered a professional result on time.",
+    name: "Maxton LifeScience",
+    role: "Client – Healthcare Platform",
   },
 ];
 

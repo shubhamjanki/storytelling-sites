@@ -6,10 +6,10 @@ import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
 
 const projects = [
-  { img: project1, title: "Finera Dashboard", category: "Product Design", tags: ["Dashboard", "SaaS"] },
-  { img: project2, title: "Havenly Real Estate", category: "Web Design", tags: ["Website", "Branding"] },
-  { img: project3, title: "HealthSync App", category: "Mobile Design", tags: ["Mobile", "Healthcare"] },
-  { img: project4, title: "Cluxo Learning Platform", category: "UI/UX Design", tags: ["EdTech", "Platform"] },
+  { img: project1, title: "AI Mock Interview Platform", category: "Full-Stack MERN", tags: ["React.js", "Node.js"] },
+  { img: project2, title: "Aayuvardan Lifescience", category: "Business Website", tags: ["React.js", "UI/UX"] },
+  { img: project3, title: "Maxton LifeScience", category: "Healthcare Website", tags: ["MERN", "Responsive"] },
+  { img: project4, title: "Music Player App", category: "React Application", tags: ["React.js", "Audio"] },
 ];
 
 const WorkSection = () => {
@@ -25,7 +25,7 @@ const WorkSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-sm text-muted-foreground mb-2">/ Best Projects</p>
+          <p className="text-sm text-muted-foreground mb-2">/ My Projects</p>
           <h2 className="text-3xl md:text-4xl font-light text-foreground">
             Selected <span className="font-serif-display italic">Works</span>
           </h2>

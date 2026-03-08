@@ -19,7 +19,7 @@ const ContactSection = () => {
             <span className="font-serif-display italic">great together</span>
           </h2>
           <a
-            href="mailto:hello@elianross.com"
+            href="mailto:shubhamjanki000@gmail.com"
             className="mt-10 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
           >
             <span>→</span> Get In Touch
