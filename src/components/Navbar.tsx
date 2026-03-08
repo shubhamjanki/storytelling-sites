@@ -20,11 +20,11 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        <span className="text-lg font-semibold tracking-tight text-foreground">
+        <span className="text-lg font-serif-display italic tracking-tight text-foreground">
           Shubham Pandey
         </span>
         <div className="hidden md:flex items-center gap-8">
-          {["About", "Process", "Work", "Contact"].map((item) => (
+          {["About", "Work", "Contact"].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
