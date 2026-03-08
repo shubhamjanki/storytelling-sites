@@ -43,17 +43,24 @@ const HeroSection = () => {
             Web Developer
           </motion.p>
 
-          {/* Portrait — sits below text, pulled up to overlap */}
+          {/* Portrait with gradient glow behind */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-[15] mx-auto -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-64 sm:w-72 md:w-80 lg:w-96 pointer-events-none"
           >
+            {/* Radial gradient glow behind portrait */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 -inset-x-12 -inset-y-8 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--neon)/0.5)_0%,hsl(var(--neon-glow)/0.3)_40%,transparent_70%)] blur-2xl"
+            />
             <img
               src={portrait}
               alt="Shubham Pandey – Web Developer"
-              className="w-full object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)]"
+              className="relative z-10 w-full object-contain drop-shadow-[0_20px_40px_hsl(var(--neon)/0.3)] grayscale"
             />
           </motion.div>
         </div>
