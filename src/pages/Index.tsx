@@ -46,6 +46,7 @@ const Index = () => {
         <Navbar musicPlaying={musicPlaying} onToggleMusic={handleToggleMusic} />
         <HeroSection loaderDone={!loading} />
         <AboutSection />
+        <TechSection />
         <ProcessSection />
         <TestimonialsSection />
         <WorkSection />
