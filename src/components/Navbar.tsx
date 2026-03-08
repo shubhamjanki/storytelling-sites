@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
 
-const Navbar = () => {
+interface NavbarProps {
+  musicPlaying?: boolean;
+  onToggleMusic?: () => void;
+}
+
+const Navbar = ({ musicPlaying, onToggleMusic }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -34,12 +40,30 @@ const Navbar = () => {
             </a>
           ))}
         </div>
-        <a
-          href="#contact"
-          className="rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground hover:opacity-90 transition-opacity"
-        >
-          Get in Touch
-        </a>
+        <div className="flex items-center gap-3">
+          {onToggleMusic && (
+            <button
+              onClick={onToggleMusic}
+              className="relative flex items-center justify-center w-9 h-9 rounded-full border border-border bg-background/80 backdrop-blur-sm text-foreground hover:border-accent transition-colors duration-300"
+              aria-label={musicPlaying ? "Pause music" : "Play music"}
+            >
+              {musicPlaying ? <Volume2 size={16} /> : <VolumeX size={16} />}
+              {musicPlaying && (
+                <motion.span
+                  className="absolute inset-0 rounded-full border border-accent"
+                  animate={{ scale: [1, 1.4], opacity: [0.6, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              )}
+            </button>
+          )}
+          <a
+            href="#contact"
+            className="rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground hover:opacity-90 transition-opacity"
+          >
+            Get in Touch
+          </a>
+        </div>
       </div>
     </motion.nav>
   );

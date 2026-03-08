@@ -14,7 +14,8 @@ import useAmbientMusic from "@/hooks/useAmbientMusic";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
-  const { start: startMusic } = useAmbientMusic();
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const { start: startMusic, pause: pauseMusic } = useAmbientMusic();
 
   const handleLoaderComplete = useCallback(() => {
     setLoading(false);
@@ -22,7 +23,13 @@ const Index = () => {
 
   const handleEnter = useCallback(() => {
     startMusic();
+    setMusicPlaying(true);
   }, [startMusic]);
+
+  const handleToggleMusic = useCallback(() => {
+    const isNowPlaying = pauseMusic();
+    setMusicPlaying(!!isNowPlaying);
+  }, [pauseMusic]);
 
   return (
     <>
@@ -35,7 +42,7 @@ const Index = () => {
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Navbar />
+        <Navbar musicPlaying={musicPlaying} onToggleMusic={handleToggleMusic} />
         <HeroSection loaderDone={!loading} />
         <AboutSection />
         <ProcessSection />
