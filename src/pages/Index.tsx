@@ -9,6 +9,7 @@ import WorkSection from "@/components/WorkSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import TechSection from "@/components/TechSection";
 import ContactSection from "@/components/ContactSection";
+import SocialSection from "@/components/SocialSection";
 import Footer from "@/components/Footer";
 import Loader from "@/components/Loader";
 import useAmbientMusic from "@/hooks/useAmbientMusic";
@@ -52,6 +53,7 @@ const Index = () => {
         <WorkSection />
         <ExperienceSection />
         <ContactSection />
+        <SocialSection />
         <Footer />
       </motion.div>
     </>
