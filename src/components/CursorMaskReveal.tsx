@@ -144,7 +144,7 @@ const CursorMaskReveal = ({
     // Draw foreground with grayscale filter
     ctx.save();
     ctx.filter = "grayscale(100%)";
-    drawCover(ctx, images.fg, w, h);
+    drawContain(ctx, images.fg, w, h);
     ctx.restore();
 
     // Overlay
