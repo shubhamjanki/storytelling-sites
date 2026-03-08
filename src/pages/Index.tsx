@@ -7,6 +7,7 @@ import ProcessSection from "@/components/ProcessSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import WorkSection from "@/components/WorkSection";
 import ExperienceSection from "@/components/ExperienceSection";
+import TechSection from "@/components/TechSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import Loader from "@/components/Loader";
