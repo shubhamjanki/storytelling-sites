@@ -1,5 +1,5 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, useAnimationControls } from "framer-motion";
+import { useRef, useState } from "react";
 
 const technologies = [
   { name: "Python", icon: "🐍" },
@@ -18,32 +18,80 @@ const technologies = [
 
 const MarqueeRow = ({ reverse = false }: { reverse?: boolean }) => {
   const items = [...technologies, ...technologies];
+  const controls = useAnimationControls();
+  const [paused, setPaused] = useState(false);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+
+  const handleMouseEnter = () => {
+    setPaused(true);
+    controls.stop();
+  };
+
+  const handleMouseLeave = () => {
+    setPaused(false);
+    setHoveredIdx(null);
+    controls.start({
+      x: reverse ? ["0%", "-50%"] : ["-50%", "0%"],
+      transition: { x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } },
+    });
+  };
 
   return (
-    <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+    <div
+      className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <motion.div
         className="flex shrink-0 gap-6 py-4"
-        animate={{ x: reverse ? ["0%", "-50%"] : ["-50%", "0%"] }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 30,
-            ease: "linear",
-          },
+        animate={controls}
+        initial={{ x: reverse ? "0%" : "-50%" }}
+        onAnimationComplete={() => {
+          if (!paused) {
+            controls.start({
+              x: reverse ? ["0%", "-50%"] : ["-50%", "0%"],
+              transition: { x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } },
+            });
+          }
+        }}
+        // auto-start
+        onUpdate={() => {}}
+        ref={(el) => {
+          if (el && !paused) {
+            controls.start({
+              x: reverse ? ["0%", "-50%"] : ["-50%", "0%"],
+              transition: { x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } },
+            });
+          }
         }}
       >
-        {items.map((tech, i) => (
-          <div
-            key={`${tech.name}-${i}`}
-            className="group flex items-center gap-3 rounded-full border border-border bg-card px-6 py-3 transition-all duration-300 hover:border-accent hover:shadow-[0_0_20px_hsl(var(--neon)/0.15)]"
-          >
-            <span className="text-xl">{tech.icon}</span>
-            <span className="text-sm font-medium text-foreground whitespace-nowrap">
-              {tech.name}
-            </span>
-          </div>
-        ))}
+        {items.map((tech, i) => {
+          const isHovered = hoveredIdx === i;
+          const isDimmed = hoveredIdx !== null && !isHovered;
+
+          return (
+            <motion.div
+              key={`${tech.name}-${i}`}
+              onMouseEnter={() => setHoveredIdx(i)}
+              onMouseLeave={() => setHoveredIdx(null)}
+              animate={{
+                scale: isHovered ? 1.1 : 1,
+                opacity: isDimmed ? 0.4 : 1,
+              }}
+              transition={{ duration: 0.25 }}
+              className={`flex items-center gap-3 rounded-full border px-6 py-3 transition-colors duration-300 ${
+                isHovered
+                  ? "border-accent bg-accent/10 shadow-[0_0_24px_hsl(var(--neon)/0.25)]"
+                  : "border-border bg-card"
+              }`}
+            >
+              <span className="text-xl">{tech.icon}</span>
+              <span className="text-sm font-medium text-foreground whitespace-nowrap">
+                {tech.name}
+              </span>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </div>
   );
