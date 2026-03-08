@@ -83,19 +83,19 @@ const Loader = ({ onComplete, onEnter }: LoaderProps) => {
         >
           {/* Spiral animation */}
           <motion.div
-            className="absolute inset-0 flex items-center justify-center opacity-30"
+            className="absolute inset-0 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 0.3, scale: 1 }}
+            animate={{ opacity: 0.7, scale: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
           >
             <Spiral
               totalDots={500}
               dotRadius={1.5}
               duration={4}
-              dotColor="hsl(90, 85%, 50%)"
+              dotColor="hsl(90, 90%, 55%)"
               size={500}
-              minOpacity={0.15}
-              maxOpacity={0.7}
+              minOpacity={0.4}
+              maxOpacity={1}
               minScale={0.3}
               maxScale={2}
             />
