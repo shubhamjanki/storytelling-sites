@@ -1,5 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import portrait from "@/assets/portrait-hero.png";
+import project1 from "@/assets/project-1.jpg";
+import project2 from "@/assets/project-2.jpg";
+import project3 from "@/assets/project-3.jpg";
+import project4 from "@/assets/project-4.jpg";
+
+const preloadImages = [portrait, project1, project2, project3, project4];
 
 interface LoaderProps {
   onComplete: () => void;
@@ -8,6 +15,22 @@ interface LoaderProps {
 
 const Loader = ({ onComplete, onEnter }: LoaderProps) => {
   const [progress, setProgress] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload all hero images during loader
+  useEffect(() => {
+    let loaded = 0;
+    preloadImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = img.onerror = () => {
+        loaded++;
+        if (loaded >= preloadImages.length) setImagesLoaded(true);
+      };
+    });
+    const fallback = setTimeout(() => setImagesLoaded(true), 3000);
+    return () => clearTimeout(fallback);
+  }, []);
   const [phase, setPhase] = useState<"loading" | "ready" | "revealing">("loading");
 
   useEffect(() => {

@@ -20,8 +20,7 @@ const titleFontSize: Record<string, string> = {
 };
 
 const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
-  const [imagesReady, setImagesReady] = useState(false);
-  const ready = imagesReady && loaderDone;
+  const ready = loaderDone;
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
