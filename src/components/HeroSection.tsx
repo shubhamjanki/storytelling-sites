@@ -38,8 +38,6 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
   const titleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const glowScale = useTransform(scrollYProgress, [0, 0.6], [1, 1.4]);
   const glowOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
 
   // Typewriter effect
   useEffect(() => {
