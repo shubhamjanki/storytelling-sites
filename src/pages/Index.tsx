@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
+import ProfileSection from "@/components/ProfileSection";
 import ProcessSection from "@/components/ProcessSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import WorkSection from "@/components/WorkSection";
@@ -47,6 +48,7 @@ const Index = () => {
       >
         <Navbar musicPlaying={musicPlaying} onToggleMusic={handleToggleMusic} />
         <HeroSection loaderDone={!loading} />
+        <ProfileSection />
         <AboutSection />
         <ScrollUnmask>
           <TechSection />
