@@ -30,10 +30,10 @@ const Navbar = ({ musicPlaying, onToggleMusic }: NavbarProps) => {
           Shubham Pandey
         </span>
         <div className="hidden md:flex items-center gap-8">
-          {["About", "Work", "Contact"].map((item) => (
+          {["About", "Work", "Blog", "Contact"].map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={`/#${item.toLowerCase()}`}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {item}
@@ -58,7 +58,7 @@ const Navbar = ({ musicPlaying, onToggleMusic }: NavbarProps) => {
             </button>
           )}
           <a
-            href="#contact"
+            href="/#contact"
             className="rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground hover:opacity-90 transition-opacity"
           >
             Get in Touch

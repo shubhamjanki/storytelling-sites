@@ -4,16 +4,18 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ProfileSection from "@/components/ProfileSection";
+import ServicesSection from "@/components/ServicesSection";
+import EngagementSection from "@/components/EngagementSection";
 import ProcessSection from "@/components/ProcessSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import WorkSection from "@/components/WorkSection";
+import BlogSection from "@/components/BlogSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import TechSection from "@/components/TechSection";
 import ContactSection from "@/components/ContactSection";
 import SocialSection from "@/components/SocialSection";
 import Footer from "@/components/Footer";
 import Loader from "@/components/Loader";
-import ScrollUnmask from "@/components/ScrollUnmask";
 import useAmbientMusic from "@/hooks/useAmbientMusic";
 
 const Index = () => {
@@ -41,31 +43,35 @@ const Index = () => {
         {loading && <Loader onComplete={handleLoaderComplete} onEnter={handleEnter} />}
       </AnimatePresence>
       <motion.div
-        className="min-h-screen bg-background"
+        className="page-shell min-h-screen"
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Navbar musicPlaying={musicPlaying} onToggleMusic={handleToggleMusic} />
-        <HeroSection loaderDone={!loading} />
-        <ProfileSection />
-        <AboutSection />
-        <ScrollUnmask>
+        <div className="global-ambient-bg" aria-hidden="true">
+          <div className="ambient-blob ambient-blob-hero" />
+          <div className="ambient-blob ambient-blob-profile" />
+          <div className="ambient-blob ambient-blob-tech" />
+          <div className="ambient-blob ambient-blob-work" />
+          <div className="ambient-blob ambient-blob-footer" />
+        </div>
+        <div className="relative z-10">
+          <Navbar musicPlaying={musicPlaying} onToggleMusic={handleToggleMusic} />
+          <HeroSection loaderDone={!loading} />
+          <ProfileSection />
+          <ServicesSection />
+          <EngagementSection />
+          <AboutSection />
           <TechSection />
-        </ScrollUnmask>
-        <ProcessSection />
-        <ScrollUnmask>
+          <ProcessSection />
           <TestimonialsSection />
-        </ScrollUnmask>
-        <ScrollUnmask>
           <WorkSection />
-        </ScrollUnmask>
-        <ExperienceSection />
-        <ScrollUnmask>
+          <BlogSection />
+          <ExperienceSection />
           <ContactSection />
-        </ScrollUnmask>
-        <SocialSection />
-        <Footer />
+          <SocialSection />
+          <Footer />
+        </div>
       </motion.div>
     </>
   );

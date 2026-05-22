@@ -24,6 +24,10 @@ if (typeof document !== 'undefined' && !document.getElementById(KEYFRAMES_ID)) {
       0% { background-position: 0 var(--background-y), 0 0, center; }
       100% { background-position: 0 var(--background-y), 90% 90%, center; }
     }
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
   `;
   document.head.appendChild(style);
 }
@@ -269,7 +273,25 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     return () => window.removeEventListener('deviceorientation', handleDeviceOrientation);
   }, [enableMobileTilt, handleDeviceOrientation]);
 
-  const cardRadius = '30px';
+  const [isMobile, setIsMobile] = useState<boolean>(
+    typeof window !== 'undefined' ? window.innerWidth <= 640 : false
+  );
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 640);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', onResize);
+      window.addEventListener('orientationchange', onResize);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', onResize);
+        window.removeEventListener('orientationchange', onResize);
+      }
+    };
+  }, []);
+
+  const cardRadius = isMobile ? '50%' : '30px';
 
   const cardStyle = useMemo(
     () => ({
@@ -346,7 +368,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     zIndex: 3,
     gridArea: '1 / -1',
     borderRadius: cardRadius,
-    pointerEvents: 'none'
+    pointerEvents: 'none',
+    opacity: 0.4
   };
 
   const glareStyle: React.CSSProperties = {
@@ -362,8 +385,59 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     zIndex: 4,
     gridArea: '1 / -1',
     borderRadius: cardRadius,
-    pointerEvents: 'none'
+    pointerEvents: 'none',
+    opacity: 0.3
   };
+
+  const sectionStyle: React.CSSProperties = isMobile
+    ? {
+        height: '60svh',
+        maxHeight: '420px',
+        aspectRatio: '1/1',
+        borderRadius: '50%',
+        backgroundBlendMode: 'color-dodge, normal, normal, normal',
+        boxShadow:
+          'rgba(0, 0, 0, 0.8) calc((var(--pointer-from-left) * 10px) - 3px) calc((var(--pointer-from-top) * 20px) - 6px) 20px -5px',
+        transition: 'transform 1s ease',
+        transform: 'translateZ(0) rotateX(0deg) rotateY(0deg)',
+        background: 'rgba(0, 0, 0, 0.9)',
+        backfaceVisibility: 'hidden',
+        overflow: 'hidden'
+      }
+    : {
+        height: '80svh',
+        maxHeight: '540px',
+        aspectRatio: '0.718',
+        borderRadius: cardRadius,
+        backgroundBlendMode: 'color-dodge, normal, normal, normal',
+        boxShadow:
+          'rgba(0, 0, 0, 0.8) calc((var(--pointer-from-left) * 10px) - 3px) calc((var(--pointer-from-top) * 20px) - 6px) 20px -5px',
+        transition: 'transform 1s ease',
+        transform: 'translateZ(0) rotateX(0deg) rotateY(0deg)',
+        background: 'rgba(0, 0, 0, 0.9)',
+        backfaceVisibility: 'hidden'
+      };
+
+  const mainImageStyle: React.CSSProperties = isMobile
+    ? {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '50%',
+        backfaceVisibility: 'hidden',
+        pointerEvents: 'none'
+      }
+    : {
+        transformOrigin: '50% 100%',
+        transform:
+          'translateX(calc(-35% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scale(1.15) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01))',
+        borderRadius: cardRadius,
+        backfaceVisibility: 'hidden'
+      };
 
   return (
     <div
@@ -383,20 +457,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       )}
       <div ref={shellRef} className="relative z-[1] group">
         <section
-          className="grid relative overflow-hidden"
-          style={{
-            height: '80svh',
-            maxHeight: '540px',
-            aspectRatio: '0.718',
-            borderRadius: cardRadius,
-            backgroundBlendMode: 'color-dodge, normal, normal, normal',
-            boxShadow:
-              'rgba(0, 0, 0, 0.8) calc((var(--pointer-from-left) * 10px) - 3px) calc((var(--pointer-from-top) * 20px) - 6px) 20px -5px',
-            transition: 'transform 1s ease',
-            transform: 'translateZ(0) rotateX(0deg) rotateY(0deg)',
-            background: 'rgba(0, 0, 0, 0.9)',
-            backfaceVisibility: 'hidden'
-          }}
+          className="grid relative"
+          style={sectionStyle}
           onMouseEnter={handlePointerEnter}
           onMouseMove={handlePointerMove}
           onMouseLeave={handlePointerLeave}
@@ -428,123 +490,153 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               }}
             >
               <img
-                className="w-full absolute left-1/2 bottom-[-1px]"
+                className="absolute"
                 src={avatarUrl}
                 alt={`${name || 'User'} avatar`}
                 loading="lazy"
-                style={{
-                  transformOrigin: '50% 100%',
-                  transform:
-                    'translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01))',
-                  borderRadius: cardRadius,
-                  backfaceVisibility: 'hidden'
-                }}
+                style={mainImageStyle}
                 onError={e => {
                   const t = e.target as HTMLImageElement;
                   t.style.display = 'none';
                 }}
               />
-              {showUserInfo && (
-                <div
-                  className="absolute z-[2] flex items-center justify-between"
-                  style={{
-                    bottom: '20px',
-                    left: '20px',
-                    right: '20px',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    backdropFilter: 'blur(30px)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: 'calc(max(0px, var(--card-radius) - 20px + 6px))',
-                    padding: '12px 14px',
-                    pointerEvents: 'auto'
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="rounded-full overflow-hidden border border-white/10 flex-shrink-0"
-                      style={{ width: '48px', height: '48px' }}
-                    >
-                      <img
-                        className="w-full h-full object-cover"
-                        src={miniAvatarUrl || avatarUrl}
-                        alt={`${name || 'User'} mini avatar`}
-                        loading="lazy"
-                        style={{ display: 'block', gridArea: 'auto', borderRadius: '50%', pointerEvents: 'auto' }}
-                        onError={e => {
-                          const t = e.target as HTMLImageElement;
-                          t.style.opacity = '0.5';
-                          t.src = avatarUrl;
-                        }}
-                      />
-                    </div>
-                    <div className="flex flex-col items-start gap-1.5">
-                      <div className="text-sm font-medium text-white/90">@{handle}</div>
-                      <div className="text-sm text-white/70">{status}</div>
-                    </div>
-                  </div>
-                  <button
-                    className="border border-white/10 rounded-lg px-4 py-3 text-xs font-semibold text-white/90 backdrop-blur-[10px] transition-all duration-200 ease-out hover:border-white/40 hover:-translate-y-0.5 cursor-pointer"
-                    onClick={handleContactClick}
-                    style={{ pointerEvents: 'auto', display: 'block', gridArea: 'auto', borderRadius: '8px' }}
-                    type="button"
-                    aria-label={`Contact ${name || 'user'}`}
-                  >
-                    {contactText}
-                  </button>
-                </div>
-              )}
+
+            </div>
+
+            {/* Status Badge */}
+            <div
+              className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[10]"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(0, 0, 0, 0.3)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: '20px',
+                padding: '6px 12px',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                pointerEvents: 'auto'
+              }}
+            >
+              <div
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: '#22c55e',
+                  animation: 'pulse-green 2s ease-in-out infinite'
+                }}
+              />
+              <span style={{ color: '#fff', fontSize: '12px', fontWeight: '500' }}>Available for work</span>
             </div>
 
             <div
-              className="max-h-full overflow-hidden text-center relative z-[5]"
+              className="max-h-full overflow-hidden text-center relative z-[5] flex flex-col justify-between p-6"
               style={{
                 transform:
                   'translate3d(calc(var(--pointer-from-left) * -6px + 3px), calc(var(--pointer-from-top) * -6px + 3px), 0.1px)',
                 mixBlendMode: 'luminosity',
                 gridArea: '1 / -1',
                 borderRadius: cardRadius,
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                display: 'flex'
               }}
             >
-              <div className="w-full absolute flex flex-col" style={{ top: '3em', display: 'flex', gridArea: 'auto' }}>
+              {/* Name and Title */}
+              <div className="w-full flex flex-col pt-8">
                 <h3
                   className="font-semibold m-0"
                   style={{
                     fontSize: 'min(5svh, 3em)',
-                    backgroundImage: 'linear-gradient(to bottom, #fff, #6f6fbe)',
-                    backgroundSize: '1em 1.5em',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    display: 'block',
-                    gridArea: 'auto',
-                    borderRadius: '0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '4px',
                     pointerEvents: 'auto'
                   }}
                 >
-                  {name}
+                  <span style={{ color: '#fff' }}>Shubham</span>
+                  <span style={{ color: '#84cc16', fontSize: 'min(5svh, 3em)' }}>Pandey</span>
                 </h3>
                 <p
-                  className="font-semibold whitespace-nowrap mx-auto w-min"
+                  className="font-semibold whitespace-nowrap mx-auto"
                   style={{
-                    position: 'relative',
-                    top: '-12px',
                     fontSize: '16px',
-                    margin: '0 auto',
-                    backgroundImage: 'linear-gradient(to bottom, #fff, #4a4ac0)',
-                    backgroundSize: '1em 1.5em',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
+                    margin: '8px auto 0',
+                    color: '#d1d5db',
                     display: 'block',
-                    gridArea: 'auto',
-                    borderRadius: '0',
                     pointerEvents: 'auto'
                   }}
                 >
                   {title}
                 </p>
               </div>
+
+              {/* Stats Section */}
+              <div
+                className="w-full flex justify-around items-center gap-4 py-6"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '16px',
+                  padding: '20px',
+                  pointerEvents: 'auto',
+                  marginBottom: '24px'
+                }}
+              >
+                {/* Stat 1 */}
+                <div style={{ textAlign: 'center', flex: 1 }}>
+                  <div style={{ fontSize: '24px', marginBottom: '8px' }}>⚡</div>
+                  <div style={{ color: '#fff', fontSize: '18px', fontWeight: '700' }}>2+</div>
+                  <div style={{ color: '#9ca3af', fontSize: '12px', marginTop: '4px' }}>Years Exp.</div>
+                </div>
+
+                {/* Stat 2 */}
+                <div style={{ textAlign: 'center', flex: 1 }}>
+                  <div style={{ fontSize: '24px', marginBottom: '8px' }}>{'</>'}</div>
+                  <div style={{ color: '#fff', fontSize: '18px', fontWeight: '700' }}>20+</div>
+                  <div style={{ color: '#9ca3af', fontSize: '12px', marginTop: '4px' }}>Projects</div>
+                </div>
+
+                {/* Stat 3 */}
+                <div style={{ textAlign: 'center', flex: 1 }}>
+                  <div style={{ fontSize: '24px', marginBottom: '8px' }}>👥</div>
+                  <div style={{ color: '#fff', fontSize: '18px', fontWeight: '700' }}>10+</div>
+                  <div style={{ color: '#9ca3af', fontSize: '12px', marginTop: '4px' }}>Happy Clients</div>
+                </div>
+              </div>
+
+              {/* Button */}
+              <button
+                onClick={handleContactClick}
+                className="w-full border-none rounded-full px-6 py-3"
+                style={{
+                  background: '#f5f5f5',
+                  color: '#000',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '12px',
+                  transition: 'all 0.3s ease',
+                  pointerEvents: 'auto'
+                }}
+                onMouseEnter={(e) => {
+                  const btn = e.currentTarget;
+                  btn.style.transform = 'scale(1.05)';
+                  btn.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  const btn = e.currentTarget;
+                  btn.style.transform = 'scale(1)';
+                  btn.style.boxShadow = 'none';
+                }}
+              >
+                Get in Touch
+                <span style={{ fontSize: '18px' }}>→</span>
+              </button>
             </div>
           </div>
         </section>

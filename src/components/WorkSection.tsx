@@ -18,7 +18,7 @@ const WorkSection = () => {
 
   return (
     <section id="work" className="py-32" ref={ref}>
-      <div className="container mx-auto px-6">
+      <div className="container relative z-10 mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -40,7 +40,7 @@ const WorkSection = () => {
               transition={{ duration: 0.6, delay: 0.15 * i }}
               className="group cursor-pointer"
             >
-              <div className="overflow-hidden rounded-2xl bg-surface">
+              <div className="overflow-hidden rounded-2xl border border-white/60 bg-white/55 shadow-[0_18px_70px_hsl(var(--neon)/0.08)] backdrop-blur-xl">
                 <img
                   src={project.img}
                   alt={project.title}

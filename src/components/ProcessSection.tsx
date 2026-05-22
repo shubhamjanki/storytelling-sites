@@ -12,8 +12,8 @@ const ProcessSection = () => {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="py-28 md:py-36 bg-surface overflow-hidden" ref={ref}>
-      <div className="container mx-auto px-6">
+    <section className="pt-40 pb-28 md:pt-44 md:pb-36" ref={ref}>
+      <div className="container relative z-10 mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

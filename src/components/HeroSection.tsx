@@ -8,15 +8,15 @@ import project3 from "@/assets/project-3.jpg";
 import project4 from "@/assets/project-4.jpg";
 
 const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
-const titles = ["Web Developer", "Software Engineer", "Tech Enthusiast", "Vibe Coder"];
+const titles = ["Web Developer", "Software Engineer", "Tech Enthusiast", "Code Tinkerer"];
 
 const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const titleFontSize: Record<string, string> = {
-  "Web Developer": "text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem]",
-  "Software Engineer": "text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[7rem]",
-  "Tech Enthusiast": "text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[7rem]",
-  "Vibe Coder": "text-[3rem] sm:text-6xl md:text-7xl lg:text-[8.5rem]",
+  "Web Developer": "text-[8vw] sm:text-5xl md:text-6xl lg:text-[7.25rem]",
+  "Software Engineer": "text-[7vw] sm:text-4xl md:text-5xl lg:text-[6rem]",
+  "Tech Enthusiast": "text-[7vw] sm:text-4xl md:text-5xl lg:text-[6rem]",
+  "Code Tinkerer": "text-[8vw] sm:text-5xl md:text-6xl lg:text-[7.25rem]",
 };
 
 const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
@@ -32,12 +32,12 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
   });
 
   // Parallax transforms
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const portraitY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const titleY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const glowScale = useTransform(scrollYProgress, [0, 0.6], [1, 1.4]);
   const glowOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   // Typewriter effect
   useEffect(() => {
@@ -77,7 +77,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden"
+      className="relative min-h-screen overflow-visible flex items-center justify-center"
       onClick={(e) => {
         const target = e.target as HTMLElement;
         if (!target.closest("a, button, [role='button']")) {
@@ -85,33 +85,26 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
         }
       }}
     >
-      {/* Parallax gradient background */}
+      {/* Gradient Background */}
       <motion.div
         style={{ y: bgY }}
-        className="absolute inset-0 -top-20 -bottom-20 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.25)] to-[hsl(var(--neon)/0.45)]"
+        className="absolute inset-0 -top-20 -bottom-96 bg-gradient-to-b from-background via-[hsl(var(--neon-glow)/0.25)] via-[hsl(var(--neon)/0.45)] to-transparent pointer-events-none"
       />
-
-      <div className="container relative z-10 mx-auto px-6 pt-28 md:pt-32">
+      <div className="container relative z-10 mx-auto px-6 py-20 md:py-24 w-full">
         <AnimatePresence>
           {ready && (
             <>
-              {/* Badge */}
-              <motion.div {...fadeUp(0)} className="flex justify-center mb-8">
-                <span className="inline-flex items-center gap-2 text-sm text-muted-foreground tracking-wide">
-                  <span className="text-lg">✦</span> MERN Stack Developer
-                </span>
-              </motion.div>
 
               {/* Text + Portrait stack */}
               <motion.div className="relative flex flex-col items-center" style={{ y: titleY, opacity: titleOpacity }}>
                 <motion.h1
                   {...fadeUp(0.08)}
-                  className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.95] text-center relative z-20"
+                  className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[0.95] text-center relative z-20"
                 >
                   Hi I'm Shubham
                 </motion.h1>
 
-                <div className="relative z-10 -mt-1 md:-mt-2 h-[3.5rem] sm:h-[4.5rem] md:h-[5.5rem] lg:h-[9rem] flex items-center justify-center">
+                <div className="relative z-10 -mt-1 md:-mt-2 h-[10vw] sm:h-[4rem] md:h-[5rem] lg:h-[7.5rem] flex items-center justify-center">
                   <p
                     className={`${titleFontSize[titles[titleIndex]]} font-serif-display italic font-medium text-foreground leading-[0.85] text-center whitespace-nowrap`}
                   >
@@ -119,7 +112,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                     <motion.span
                       animate={{ opacity: [1, 0] }}
                       transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-                      className="inline-block w-[3px] sm:w-[4px] lg:w-[6px] h-[2.5rem] sm:h-[3.5rem] md:h-[4.5rem] lg:h-[7rem] bg-accent ml-1 align-middle"
+                      className="inline-block w-[3px] sm:w-[4px] lg:w-[5px] h-[1em] bg-accent ml-1 align-middle"
                     />
                   </p>
                 </div>
@@ -130,7 +123,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                   animate={ready ? { opacity: 1, scale: 1, y: 0 } : {}}
                   transition={{ delay: 0.12, duration: 0.8, ease: easing }}
                   style={{ y: portraitY }}
-                  className="relative z-[15] mx-auto -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-64 sm:w-72 md:w-80 lg:w-96"
+                  className="relative z-[15] -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-full flex justify-center"
                 >
                   {/* Glow */}
                   <motion.div
@@ -147,13 +140,14 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                   />
                 </motion.div>
               </motion.div>
+              
 
               {/* Availability + Description */}
               <motion.div
                 {...fadeUp(0.25)}
-                className="relative z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between -mt-16 sm:-mt-20 md:-mt-24 gap-4"
+                className="relative z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between mt-8 sm:-mt-44 md:-mt-44 gap-4"
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur-sm px-5 py-2 text-sm text-foreground shadow-sm">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 backdrop-blur-xl px-5 py-2 text-sm text-foreground shadow-sm">
                   <motion.span
                     animate={{ scale: [1, 1.3, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
@@ -162,7 +156,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                   Available for new opportunities
                 </span>
 
-                <p className="max-w-xs text-sm text-foreground/70 sm:text-right leading-relaxed">
+                <p className="max-w-xs text-sm text-foreground/70 text-left sm:text-right leading-relaxed">
                   passionate about building scalable, responsive web applications that connect users with value.
                 </p>
               </motion.div>
@@ -188,7 +182,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className="relative z-20 mt-14 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground"
+                className="relative z-20 mt-14 flex flex-wrap justify-center gap-6 sm:gap-8 text-sm text-muted-foreground"
               >
                 {logos.map((logo, i) => (
                   <motion.span
@@ -221,7 +215,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                     key={p.alt}
                     whileHover={{ scale: 1.03 }}
                     transition={{ type: "spring", stiffness: 300 }}
-                    className={`${p.className} overflow-hidden rounded-2xl bg-surface shadow-lg cursor-pointer`}
+                    className={`${p.className} overflow-hidden rounded-2xl border border-white/60 bg-white/55 shadow-lg backdrop-blur-xl cursor-pointer`}
                   >
                     <img src={p.src} alt={p.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
                   </motion.div>

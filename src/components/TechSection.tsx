@@ -82,7 +82,7 @@ const MarqueeRow = ({ reverse = false }: { reverse?: boolean }) => {
               className={`flex items-center gap-3 rounded-full border px-6 py-3 transition-colors duration-300 ${
                 isHovered
                   ? "border-accent bg-accent/10 shadow-[0_0_24px_hsl(var(--neon)/0.25)]"
-                  : "border-border bg-card"
+                  : "border-white/60 bg-white/58 backdrop-blur-xl"
               }`}
             >
               <span className="text-xl">{tech.icon}</span>
@@ -102,8 +102,8 @@ const TechSection = () => {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 overflow-hidden" ref={ref}>
-      <div className="container mx-auto px-6 mb-12">
+    <section className="-my-16 py-36 md:-my-20 md:py-40" ref={ref}>
+      <div className="container relative z-10 mx-auto px-6 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -126,7 +126,7 @@ const TechSection = () => {
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.7, delay: 0.3 }}
-        className="flex flex-col gap-4"
+        className="relative z-10 flex flex-col gap-4"
       >
         <MarqueeRow />
         <MarqueeRow reverse />

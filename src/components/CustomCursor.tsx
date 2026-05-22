@@ -60,12 +60,28 @@ const CustomCursor = () => {
       <motion.div
         ref={dotRef}
         className="cursor-dot"
-        style={{ x: cursorX, y: cursorY, translateX: "-50%", translateY: "-50%" }}
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: "-50%",
+          translateY: "-50%",
+          position: "fixed",
+          pointerEvents: "none",
+          zIndex: 10000,
+        }}
       />
       <motion.div
         ref={ringRef}
         className="cursor-ring"
-        style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}
+        style={{
+          x: ringX,
+          y: ringY,
+          translateX: "-50%",
+          translateY: "-50%",
+          position: "fixed",
+          pointerEvents: "none",
+          zIndex: 9999,
+        }}
       />
     </>
   );

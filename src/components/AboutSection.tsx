@@ -15,8 +15,8 @@ const AboutSection = () => {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-32" ref={ref}>
-      <div className="container mx-auto px-6">
+    <section id="about" className="pb-40 pt-32" ref={ref}>
+      <div className="container relative z-10 mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -35,7 +35,7 @@ const AboutSection = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-                className={`absolute ${skill.position} z-10 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-xs text-foreground shadow-sm`}
+                className={`absolute ${skill.position} z-10 inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-xs text-foreground shadow-sm backdrop-blur-xl`}
               >
                 <span className={`h-2 w-2 rounded-full ${skill.color}`} />
                 {skill.label}
@@ -63,7 +63,7 @@ const AboutSection = () => {
             {skills.map((skill) => (
               <span
                 key={skill.label}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs text-foreground"
+                className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-3 py-1.5 text-xs text-foreground backdrop-blur-xl"
               >
                 <span className={`h-2 w-2 rounded-full ${skill.color}`} />
                 {skill.label}

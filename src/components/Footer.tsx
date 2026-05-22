@@ -8,7 +8,7 @@ const Footer = () => (
             <a key={s} href={`#${s.toLowerCase()}`} className="hover:text-foreground transition-colors">{s}</a>
           ))}
         </div>
-        <span>© 2025 Shubham Pandey. All rights reserved.</span>
+        <span>©{new Date().getFullYear()} Shubham Pandey. All rights reserved.</span>
       </div>
 
       {/* Large name */}

@@ -6,14 +6,14 @@ const socials = [
   {
     name: "LinkedIn",
     icon: Linkedin,
-    url: "https://linkedin.com/in/shubhampandey",
+    url: "https://www.linkedin.com/in/shubhamjanki555/",
     color: "hover:border-[hsl(210,80%,55%)] hover:shadow-[0_0_24px_hsl(210,80%,55%,0.2)]",
     label: "Let's connect professionally",
   },
   {
     name: "GitHub",
     icon: Github,
-    url: "https://github.com/shubhampandey",
+    url: "https://github.com/shubhamjanki",
     color: "hover:border-foreground hover:shadow-[0_0_24px_hsl(0,0%,50%,0.15)]",
     label: "Check out my code",
   },
@@ -27,7 +27,7 @@ const socials = [
   {
     name: "WhatsApp",
     icon: MessageCircle,
-    url: "https://wa.me/919999999999",
+    url: "https://wa.me/919450140560",
     color: "hover:border-accent hover:shadow-[0_0_24px_hsl(var(--accent)/0.25)]",
     label: "Chat with me directly",
   },
@@ -39,7 +39,7 @@ const SocialSection = () => {
 
   return (
     <section className="py-24" ref={ref}>
-      <div className="container mx-auto px-6">
+      <div className="container relative z-10 mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -67,9 +67,9 @@ const SocialSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.15 * i }}
-              className={`group flex flex-col items-center gap-4 rounded-2xl border border-border bg-card p-8 transition-all duration-300 ${social.color}`}
+              className={`group flex flex-col items-center gap-4 rounded-2xl border border-white/60 bg-white/55 p-8 shadow-[0_18px_70px_hsl(var(--neon)/0.08)] backdrop-blur-xl transition-all duration-300 ${social.color}`}
             >
-              <div className="flex items-center justify-center w-14 h-14 rounded-full border border-border bg-background transition-colors duration-300 group-hover:border-accent">
+              <div className="flex items-center justify-center w-14 h-14 rounded-full border border-white/60 bg-white/60 backdrop-blur-xl transition-colors duration-300 group-hover:border-accent">
                 <social.icon
                   size={24}
                   className="text-muted-foreground transition-colors duration-300 group-hover:text-foreground"
