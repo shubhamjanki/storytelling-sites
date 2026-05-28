@@ -1,11 +1,19 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import HomeSection from "@/components/HomeSection";
+import HeroSection from "@/components/HeroSection";
 import Loader from "@/components/Loader";
 import useAmbientMusic from "@/hooks/useAmbientMusic";
+import AboutSection from "@/components/AboutSection";
+import ServicesSection from "@/components/ServicesSection";
+import EngagementSection from "@/components/EngagementSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import ContactSection from "@/components/ContactSection";
+import SocialSection from "@/components/SocialSection";
+import ProcessSection from "@/components/ProcessSection";
+import Footer from "@/components/Footer";
 
-const Index = () => {
+const FreelancePage = () => {
   const [loading, setLoading] = useState(true);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const { start: startMusic, pause: pauseMusic } = useAmbientMusic();
@@ -35,20 +43,30 @@ const Index = () => {
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        {/* <div className="global-ambient-bg" aria-hidden="true">
+        <div className="global-ambient-bg" aria-hidden="true">
           <div className="ambient-blob ambient-blob-hero" />
           <div className="ambient-blob ambient-blob-profile" />
           <div className="ambient-blob ambient-blob-tech" />
           <div className="ambient-blob ambient-blob-work" />
           <div className="ambient-blob ambient-blob-footer" />
-        </div> */}
+        </div>
         <div className="relative z-10">
           <Navbar musicPlaying={musicPlaying} onToggleMusic={handleToggleMusic} />
-          <HomeSection loaderDone={!loading} />
+          <HeroSection loaderDone={!loading} />
+          <Suspense fallback={null}>
+            <AboutSection />
+            <ServicesSection />
+            <EngagementSection />
+            <TestimonialsSection />
+            <ProcessSection />
+            <ContactSection />
+            <SocialSection />
+            <Footer />
+          </Suspense>
         </div>
       </motion.div>
     </>
   );
 };
 
-export default Index;
+export default FreelancePage;
