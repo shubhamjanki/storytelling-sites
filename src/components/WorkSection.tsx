@@ -1,9 +1,9 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
+import project1 from "@/assets/project-1.webp";
+import project2 from "@/assets/project-2.webp";
+import project3 from "@/assets/project-3.webp";
+import project4 from "@/assets/project-4.webp";
 
 const projects = [
   { img: project1, title: "AI Mock Interview Platform", category: "Full-Stack MERN", tags: ["React.js", "Node.js"] },
@@ -46,6 +46,7 @@ const WorkSection = () => {
                   alt={project.title}
                   className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="mt-4 flex items-start justify-between">

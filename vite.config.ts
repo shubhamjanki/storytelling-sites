@@ -19,4 +19,43 @@ export default defineConfig({
     },
   },
   assetsInclude: ["**/*.glb"],
+  build: {
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (
+              id.includes("three") ||
+              id.includes("@react-three") ||
+              id.includes("@dimforge/rapier3d-compat") ||
+              id.includes("meshline") ||
+              id.includes("three-mesh-bvh")
+            ) {
+              return "vendor-three";
+            }
+            if (id.includes("framer-motion")) {
+              return "vendor-motion";
+            }
+            if (id.includes("@radix-ui")) {
+              return "vendor-radix";
+            }
+            if (
+              id.includes("react-router-dom") ||
+              id.includes("react-router") ||
+              id.includes("@remix-run")
+            ) {
+              return "vendor-router";
+            }
+            if (id.includes("react") || id.includes("react-dom") || id.includes("scheduler")) {
+              return "vendor-react";
+            }
+            return "vendor";
+          }
+        },
+      },
+    },
+  },
 });
+

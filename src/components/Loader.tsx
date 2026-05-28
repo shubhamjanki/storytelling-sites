@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import Spiral from "@/components/Spiral";
-import portrait from "@/assets/portrait-hero.png";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
+import portrait from "@/assets/portrait-hero.webp";
+import project1 from "@/assets/project-1.webp";
+import project2 from "@/assets/project-2.webp";
+import project3 from "@/assets/project-3.webp";
+import project4 from "@/assets/project-4.webp";
 
 const preloadImages = [portrait, project1, project2, project3, project4];
 
@@ -89,7 +89,7 @@ const Loader = ({ onComplete, onEnter }: LoaderProps) => {
             transition={{ duration: 1.5, ease: "easeOut" }}
           >
             <Spiral
-              totalDots={500}
+              totalDots={200}
               dotRadius={1.5}
               duration={4}
               dotColor="hsl(90, 90%, 55%)"

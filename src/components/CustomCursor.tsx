@@ -8,9 +8,12 @@ const CustomCursor = () => {
   const ringY = useSpring(cursorY, { stiffness: 300, damping: 25 });
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
   const isHovering = useRef(false);
 
   useEffect(() => {
+    if (isTouch) return;
+
     const onMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -48,12 +51,12 @@ const CustomCursor = () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseover", onMouseOver);
     };
-  }, [cursorX]);
+  }, [cursorX, cursorY, isTouch]);
 
-  // Hide on touch devices
-  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
+  if (isTouch) {
     return null;
   }
+
 
   return (
     <>

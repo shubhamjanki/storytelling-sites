@@ -12,7 +12,7 @@ import {
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { blogPosts } from "@/data/blogPosts";
-import portrait from "@/assets/portrait.png";
+import portrait from "@/assets/portrait.webp";
 
 const MotionLink = motion(Link);
 const featuredPosts = blogPosts.slice(0, 3);
@@ -40,6 +40,7 @@ const BlogSection = () => {
                   alt="Shubham Pandey"
                   className="h-full w-full object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm text-foreground shadow-sm backdrop-blur-xl">
@@ -179,7 +180,13 @@ const BlogSection = () => {
 
                   <div className="mt-6 flex items-center gap-3">
                     <div className="h-9 w-9 overflow-hidden rounded-full bg-white/60 backdrop-blur-xl">
-                      <img src={portrait} alt="" className="h-full w-full object-cover" />
+                      <img
+                        src={portrait}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </div>
                     <span className="text-sm text-foreground">Shubham Pandey</span>
                   </div>
@@ -191,6 +198,7 @@ const BlogSection = () => {
                     alt={featuredPost.title}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
                   <div className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-foreground shadow-sm backdrop-blur-xl transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
@@ -231,6 +239,7 @@ const BlogSection = () => {
                         alt={post.title}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-foreground shadow-sm backdrop-blur-xl transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
                         <ArrowUpRight size={18} />

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import portraitHero from "@/assets/portrait-hero.png";
+import portraitHero from "@/assets/portrait-hero.webp";
 import {
   ArrowUpRight,
   Code2,
@@ -96,6 +96,8 @@ const ProfileSection = () => {
                   src={portraitHero}
                   alt="Shubham Pandey"
                   className="h-[450px] w-[116%] max-w-none translate-x-5 object-contain object-bottom drop-shadow-[0_26px_55px_rgba(0,0,0,0.42)]"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 

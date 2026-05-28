@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import portrait from "@/assets/portrait-hero.png";
+import portrait from "@/assets/portrait-hero.webp";
 import CursorReveal from "@/components/CursorReveal";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
+import project1 from "@/assets/project-1.webp";
+import project2 from "@/assets/project-2.webp";
+import project3 from "@/assets/project-3.webp";
+import project4 from "@/assets/project-4.webp";
 
 const logos = ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript"];
 const titles = ["Web Developer", "Software Engineer", "Tech Enthusiast", "Code Tinkerer"];
@@ -99,7 +99,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
               <motion.div className="relative flex flex-col items-center" style={{ y: titleY, opacity: titleOpacity }}>
                 <motion.h1
                   {...fadeUp(0.08)}
-                  className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[0.95] text-center relative z-20"
+                  className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[0.95] text-center relative z-20  lg:-mt-9"
                 >
                   Hi I'm Shubham
                 </motion.h1>
@@ -123,7 +123,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                   animate={ready ? { opacity: 1, scale: 1, y: 0 } : {}}
                   transition={{ delay: 0.12, duration: 0.8, ease: easing }}
                   style={{ y: portraitY }}
-                  className="relative z-[15] -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-full flex justify-center"
+                  className="relative z-[15] -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-24 w-[82%] flex justify-center "
                 >
                   {/* Glow */}
                   <motion.div
@@ -131,7 +131,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                     animate={ready ? { opacity: 1, scale: 1 } : {}}
                     transition={{ delay: 0.2, duration: 1, ease: easing }}
                     style={{ scale: glowScale, opacity: glowOpacity }}
-                    className="absolute inset-0 -inset-x-12 -inset-y-8 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--neon)/0.5)_0%,hsl(var(--neon-glow)/0.3)_40%,transparent_70%)] blur-2xl"
+                    className="absolute inset-0 -inset-x-12 -inset-y-8 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--neon)/0.5)_0%,hsl(var(--neon-glow)/0.3)_40%,transparent_70%)] blur-2xl "
                   />
                   <CursorReveal
                     portrait={portrait}
@@ -140,7 +140,7 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                   />
                 </motion.div>
               </motion.div>
-              
+
 
               {/* Availability + Description */}
               <motion.div
@@ -217,7 +217,13 @@ const HeroSection = ({ loaderDone = false }: { loaderDone?: boolean }) => {
                     transition={{ type: "spring", stiffness: 300 }}
                     className={`${p.className} overflow-hidden rounded-2xl border border-white/60 bg-white/55 shadow-lg backdrop-blur-xl cursor-pointer`}
                   >
-                    <img src={p.src} alt={p.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
+                    <img
+                      src={p.src}
+                      alt={p.alt}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </motion.div>
                 ))}
               </motion.div>

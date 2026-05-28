@@ -1,22 +1,23 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ProfileSection from "@/components/ProfileSection";
-import ServicesSection from "@/components/ServicesSection";
-import EngagementSection from "@/components/EngagementSection";
-import ProcessSection from "@/components/ProcessSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import WorkSection from "@/components/WorkSection";
-import BlogSection from "@/components/BlogSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import TechSection from "@/components/TechSection";
-import ContactSection from "@/components/ContactSection";
-import SocialSection from "@/components/SocialSection";
-import Footer from "@/components/Footer";
 import Loader from "@/components/Loader";
 import useAmbientMusic from "@/hooks/useAmbientMusic";
+
+const ProfileSection = lazy(() => import("@/components/ProfileSection"));
+const ServicesSection = lazy(() => import("@/components/ServicesSection"));
+const EngagementSection = lazy(() => import("@/components/EngagementSection"));
+const AboutSection = lazy(() => import("@/components/AboutSection"));
+const TechSection = lazy(() => import("@/components/TechSection"));
+const ProcessSection = lazy(() => import("@/components/ProcessSection"));
+const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
+const WorkSection = lazy(() => import("@/components/WorkSection"));
+const BlogSection = lazy(() => import("@/components/BlogSection"));
+const ExperienceSection = lazy(() => import("@/components/ExperienceSection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
+const SocialSection = lazy(() => import("@/components/SocialSection"));
+const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -58,19 +59,21 @@ const Index = () => {
         <div className="relative z-10">
           <Navbar musicPlaying={musicPlaying} onToggleMusic={handleToggleMusic} />
           <HeroSection loaderDone={!loading} />
-          <ProfileSection />
-          <ServicesSection />
-          <EngagementSection />
-          <AboutSection />
-          <TechSection />
-          <ProcessSection />
-          <TestimonialsSection />
-          <WorkSection />
-          <BlogSection />
-          <ExperienceSection />
-          <ContactSection />
-          <SocialSection />
-          <Footer />
+          <Suspense fallback={null}>
+            <ProfileSection />
+            <ServicesSection />
+            <EngagementSection />
+            <AboutSection />
+            <TechSection />
+            <ProcessSection />
+            <TestimonialsSection />
+            <WorkSection />
+            <BlogSection />
+            <ExperienceSection />
+            <ContactSection />
+            <SocialSection />
+            <Footer />
+          </Suspense>
         </div>
       </motion.div>
     </>
